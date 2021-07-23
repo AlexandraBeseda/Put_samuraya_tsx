@@ -1,0 +1,30 @@
+.tableDialogs{
+    display: grid;
+    grid-template-columns: 3fr 10fr;
+    grid-template-areas: "avatarName messages";
+}
+
+.dialogsItems{
+    grid-area: avatarName;
+    padding: 10px;
+
+}
+.dialogsItems .active{
+    padding: 10px;
+    color: orange;
+}
+
+.dialog{
+    padding: 10px;
+
+}
+
+.messages{
+    grid-area: messages;
+    padding: 10px;
+
+}
+
+.message{
+    padding: 10px;
+}

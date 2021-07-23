@@ -1,0 +1,33 @@
+.app-wrapper {
+    margin: 0 auto;
+    display: grid;
+    width: 1200px;
+
+    /*у нас 2 строки 2 колонки значит "h h" т.е. header занимает сразу 2 колонки*/
+    /*у нас 2 строки 2 колонки значит "nav content" т.е. nav занимает 1 колонку, content щзанимает 2ую колонку*/
+
+    grid-template-areas:
+          "h h"
+          "n c"; /*это псевдоним!*/
+
+    grid-template-rows: 60px 1fr;
+    /*2 строки:
+    1 строка по высоте 60 пикселей,
+    2 строка - одна фракция*/
+    grid-template-columns: 2fr 10fr;
+    /*2 колонки:
+    1ая колонка- 2 фракции;
+    2ая колонка- 10 фракций*/
+    /*grid-gap: 10px;
+    это расстояние между элементами, пока что не используем*/
+
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+
+}
+
+.app-wrapper-content {
+    grid-area: c;
+    background-color: #ff923333;
+    border-radius: 10px;
+}

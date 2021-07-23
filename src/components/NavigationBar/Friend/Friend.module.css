@@ -1,0 +1,9 @@
+.wrapper{
+    display: inline-block;
+}
+
+
+.avaImg{
+    width: 50px;
+    border-radius: 50%;
+}
