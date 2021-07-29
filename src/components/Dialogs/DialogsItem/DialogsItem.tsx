@@ -9,7 +9,7 @@ export const DialogItem = (props: DialogItemPropTypes) => {
         <div>
 
             <div className={`${s.dialog} ${s.active}`}>
-                <NavLink to={"/dialogs/" + props.id}>
+                <NavLink to={"/dialogsPage/" + props.id}>
                     <div className={s.user}>
                         <div><img className={s.userAvatar} src={props.avatar} alt="avatar"/></div>
                         <div className={s.userName}>{props.name}</div>

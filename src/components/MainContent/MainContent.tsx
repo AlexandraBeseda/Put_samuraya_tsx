@@ -2,12 +2,16 @@ import React from "react";
 import {Posts} from "./Posts/lPosts/Posts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {NewPostType} from "./Posts/lPosts/NewPost/NewPost";
+import {ActionsType} from "../../redux/redux";
 
 export type MainContentPropTypes = {
     arrayPosts: Array<NewPostType>,
-    addPost: () => void
-    messageForNewPost:string
-    changeNewTextCallback:(newText:string)=>void
+   /* addPost: () => void,*/
+    textForNewPost:string,
+/*
+    changeNewTextCallback:(newText:string)=>void,
+*/
+    dispatch:(action:ActionsType)=>void,
 }
 
 export const MainContent = (props: MainContentPropTypes) => {
@@ -15,9 +19,9 @@ export const MainContent = (props: MainContentPropTypes) => {
         <div>
             <ProfileInfo/>
             <Posts arrayPosts={props.arrayPosts}
-                   addPost={props.addPost}
-                   messageForNewPost={props.messageForNewPost}
-                   changeNewTextCallback={props.changeNewTextCallback}/>
+                   dispatch={props.dispatch}
+                  textForNewPost={props.textForNewPost}
+                  />
         </div>
     );
 }

@@ -1,4 +1,5 @@
-
+import {addPostAC, changeNewTextCallbackAC, mainContentReducer} from "./mainContent_reducer";
+import {addMessageAC, changeNewMessageCallback, dialogsPage_reducer} from "./dialogsPage_reducer";
 
 export type MessagePropTypes = {
     id: number,
@@ -9,8 +10,10 @@ export type DialogItemPropTypes = {
     name: string,
     avatar: string
 };
-type DialogsPropTypes = {
+export type DialogsPropTypes = {
     dialogsData: Array<DialogItemPropTypes>,
+    messagesDataPosts: Array<MessagePropTypes>,
+    messageDataNewPost: string,
 };
 type NewPostType = {
     id: number,
@@ -18,12 +21,12 @@ type NewPostType = {
     likes: number
 };
 export type PostsDataArrayPropTypes = {
-    messageForNewPost: string,
+    textNewPost: string,
     postsData: Array<NewPostType>;
 };
 
 
-export type SideBarType = { friends: Array<HumanPropTypes> };
+export type friendsNavigationBarType = { friends: Array<HumanPropTypes> };
 export type HumanPropTypes = {
     id: number,
     name: string,
@@ -33,28 +36,61 @@ export type HumanPropTypes = {
 export type RootStateType = {
     mainContent: PostsDataArrayPropTypes,
     dialogsPage: DialogsPropTypes,
-    messagesData: Array<MessagePropTypes>,
-    messageDataForNewPost: string,
-    sideBar: SideBarType
+    friendsNavigationBar: friendsNavigationBarType
 }
+
+/*
+const ADD_POST = "ADD_POST";
+const CHANGE_NEW_TEXT_CALLBACK = "CHANGE_NEW_TEXT_CALLBACK";
+const ADD_MESSAGE = "ADD_MESSAGE";
+const CHANGE_NEW_MESSAGE_CALLBACK = "CHANGE_NEW_MESSAGE_CALLBACK";*/
+
+
+export type ActionsType =
+    ReturnType<typeof addPostAC>
+    | ReturnType<typeof changeNewTextCallbackAC>
+    | ReturnType<typeof addMessageAC>
+    | ReturnType<typeof changeNewMessageCallback>;
+
+/*export const addPostAC = () => ({type: ADD_POST} as const);
+
+export const changeNewTextCallbackAC = (postNewText: string) => {
+    return {
+        type: CHANGE_NEW_TEXT_CALLBACK,
+        postNewText: postNewText
+    } as const
+}*/
+
+/*export const addMessageAC = () => {
+    return {
+        type: ADD_MESSAGE,
+    } as const
+}
+export const changeNewMessageCallback = (newMessage: string) => {
+    return {
+        type: CHANGE_NEW_MESSAGE_CALLBACK,
+        newMessage: newMessage
+    } as const
+}*/
 
 
 export type StoreType = {
     _state: RootStateType,
-    addPost:()=>void
-    changeNewTextCallback:(newText: string)=>void
-    addMessage:()=>void
-    changeNewMessageCallback:(newMessage: string)=>void
-    _renderEntireTree:()=>void
-    subscriber:(observer: () => void)=>void
-    getState:()=>RootStateType
+    _callSubscriber: () => void,
+    addPost: () => void,
+    changeNewTextCallback: (newText: string) => void,
+    addMessage: () => void,
+    changeNewMessageCallback: (newMessage: string) => void,
+    subscriber: (observer: () => void) => void,
+    getState: () => RootStateType,
+    dispatch: (action: ActionsType) => void
 }
 
-export const store:StoreType = {
+export const store: StoreType = {
     _state: {
 
         mainContent: {
-            messageForNewPost: "",
+            textNewPost: "",
             postsData: [
                 {id: 1, message: 'Hello!How are you?', likes: 10},
                 {id: 2, message: 'I saw you yesterday', likes: 30},
@@ -70,62 +106,103 @@ export const store:StoreType = {
                 {id: 3, name: "Alina", avatar: "https://twitchgid.ru/wp-content/uploads/2020/11/avi-12.jpeg"},
                 {id: 4, name: "Nasty", avatar: "https://twitchgid.ru/wp-content/uploads/2020/11/avi-18.jpeg"},
                 {id: 5, name: "Ira", avatar: "https://twitchgid.ru/wp-content/uploads/2020/11/avi-6.jpeg"},
-            ]
+            ],
+            messageDataNewPost: "",
+            messagesDataPosts: [
+                {id: 1, message: "Hi sweet!"},
+                {id: 2, message: "How are you?"},
+                {id: 3, message: "Go home!"},
+                {id: 4, message: "Try again tomorrow."},
+                {id: 5, message: "No."},
+            ],
         },
-        messageDataForNewPost: "Here!",
-        messagesData: [
-            {id: 1, message: "Hi sweet!"},
-            {id: 2, message: "How are you?"},
-            {id: 3, message: "Go home!"},
-            {id: 4, message: "Try again tomorrow."},
-            {id: 5, message: "No."},
-        ],
-
-        sideBar: {
+        friendsNavigationBar: {
             friends: [
                 {id: 1, name: "Jeka", avatar: "https://twitchgid.ru/wp-content/uploads/2020/11/avi-6.jpeg"},
                 {id: 2, name: "Lesya", avatar: "https://twitchgid.ru/wp-content/uploads/2020/11/avi-1.jpeg"},
                 {id: 3, name: "Vera", avatar: "https://twitchgid.ru/wp-content/uploads/2020/11/avi-16.jpeg"}]
         }
     },
-    addPost () {
+
+
+    _callSubscriber() {
+        console.log("state was changed")
+    },
+    addPost() {
         const newPost: NewPostType = {
             id: 5,
-            message: this._state.mainContent.messageForNewPost,
+            message: this._state.mainContent.textNewPost,
             likes: 155
         };
         this._state.mainContent.postsData.push(newPost);
-        this._state.mainContent.messageForNewPost = "";
-        this._renderEntireTree();
+        this._state.mainContent.textNewPost = "";
+        this._callSubscriber();
     },
-    changeNewTextCallback(newText: string){
-        this._state.mainContent.messageForNewPost = newText;
-        this._renderEntireTree();
+
+    changeNewTextCallback(newText: string) {
+        this._state.mainContent.textNewPost = newText;
+        this._callSubscriber();
     },
+
     addMessage() {
         const newMessage: MessagePropTypes =
             {
                 id: 6,
-                message: this._state.messageDataForNewPost
+                message: this._state.dialogsPage.messageDataNewPost
             };
-        this._state.messagesData.push(newMessage);
-        this._state.messageDataForNewPost = "";
-        this._renderEntireTree();
+        this._state.dialogsPage.messagesDataPosts.push(newMessage);
+        this._state.dialogsPage.messageDataNewPost = "";
+        this._callSubscriber();
     },
     changeNewMessageCallback(newMessage: string) {
-       this._state.messageDataForNewPost = newMessage;
-        this._renderEntireTree();
-    },
-    _renderEntireTree() {
-        console.log("state was changed")
+        this._state.dialogsPage.messageDataNewPost = newMessage;
+        this._callSubscriber();
     },
 
 
     subscriber(observer) {
-        this._renderEntireTree = observer;
+        this._callSubscriber = observer;
     },
 
-    getState(){
+    getState() {
         return this._state;
+    },
+
+    dispatch(action) {
+
+        this._state.mainContent = mainContentReducer(this._state.mainContent, action);
+        this._state.dialogsPage = dialogsPage_reducer(this._state.dialogsPage, action)
+        this._callSubscriber();
+
+  /*      if (action.type === ADD_POST) {
+            const newPost: NewPostType = {
+                id: 5,
+                message: this._state.mainContent.textNewPost,
+                likes: 155
+            };
+            this._state.mainContent.postsData.push(newPost);
+            this._state.mainContent.textNewPost = "";
+            this._callSubscriber();
+
+
+        } else if (action.type === CHANGE_NEW_TEXT_CALLBACK) {
+            /!* this._changeNewTextCallback(action.newText)*!/
+            this._state.mainContent.textNewPost = action.postNewText;
+            this._callSubscriber();
+        } else if (action.type === ADD_MESSAGE) {
+            const newMessage: MessagePropTypes = {
+                id: 6,
+                message: this._state.dialogsPage.messageDataNewPost
+            };
+            this._state.dialogsPage.messagesDataPosts.push(newMessage);
+            this._state.dialogsPage.messageDataNewPost = "";
+            this._callSubscriber();
+        } else if (action.type === CHANGE_NEW_MESSAGE_CALLBACK) {
+            this._state.dialogsPage.messageDataNewPost = action.newMessage;
+            this._callSubscriber();
+
+        }*/
     }
+
+
 }

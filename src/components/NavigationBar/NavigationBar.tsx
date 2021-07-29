@@ -22,7 +22,7 @@ export const NavigationBar = (props: NavigationBarPropTypes) => {
                 <NavLink to="profile" activeClassName={s.activeLink}>Profile</NavLink>
             </div>
             <div className={`${s.item}`}>
-                <NavLink to="dialogs" activeClassName={s.activeLink}>Messages</NavLink>
+                <NavLink to="dialogsPage" activeClassName={s.activeLink}>Messages</NavLink>
             </div>
             <div className={`${s.item}`}>
                 <NavLink to="news" activeClassName={s.activeLink}>News</NavLink>

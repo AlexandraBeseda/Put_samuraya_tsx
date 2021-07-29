@@ -6,31 +6,14 @@ import './index.css';
 import {App} from './App';
 import {store} from "./redux/redux";
 
-
-const state=store.getState();
-
-
 const renderEntireTree = () => {
     ReactDOM.render(
-        <React.StrictMode><App
-            store={store}
-            friends={state.sideBar.friends}
-            arrayDialogs={state.dialogsPage.dialogsData}
-            arrayMessage={state.messagesData}
-            addMessage={store.addMessage}
-            messageDataForNewPost={state.messageDataForNewPost}
-            changeNewMessageCallBack={store.changeNewMessageCallback}
-            arrayPosts={state.mainContent.postsData}
-            messageForNewPost={state.mainContent.messageForNewPost}
-            addPost={store.addPost}
-            changeNewTextCallback={store.changeNewTextCallback}
-        />
+        <React.StrictMode>
+            <App store={store}/>
         </React.StrictMode>,
-
         document.getElementById('root')
     );
 }
-
 renderEntireTree();
 store.subscriber(renderEntireTree);
 
