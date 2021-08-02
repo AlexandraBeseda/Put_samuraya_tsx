@@ -4,10 +4,9 @@ import {DialogItem} from "./DialogsItem/DialogsItem";
 import {Message} from "./Message/Message";
 import {
     ActionsType,
-
     DialogItemPropTypes,
     MessagePropTypes,
-} from "../../redux/redux";
+} from "../../redux/store";
 import {addMessageAC, changeNewMessageCallback} from "../../redux/dialogsPage_reducer";
 
 
@@ -15,12 +14,10 @@ export type DialogsPropTypes = {
     arrayDialogs: Array<DialogItemPropTypes>,
     arrayMessage: Array<MessagePropTypes>,
     messageDataForNewPost: string,
-    changeNewMessageCallBack: (newMessage: string) => void,
     dispatch: (action: ActionsType) => void
 }
 
 export const Dialogs = (props: DialogsPropTypes) => {
-
 
     const addMessage = () => {
         props.dispatch(addMessageAC());
@@ -32,15 +29,12 @@ export const Dialogs = (props: DialogsPropTypes) => {
     }
 
 
-
-
     const dialogsElements = props.arrayDialogs.map(d => <DialogItem key={d.id} name={d.name}
                                                                   id={d.id}
-                                                                  avatar={d.avatar}/>);//тут должен быть тип!
+                                                                  avatar={d.avatar}/>);
     const messagesElements = props.arrayMessage.map(m => <Message key={m.id} id={m.id}
                                                                 message={m.message}
                                                                 messageDataForNewPost={props.messageDataForNewPost}/>)
-
 
     const messageDataForNewPost=props.messageDataForNewPost;
 
@@ -56,7 +50,6 @@ export const Dialogs = (props: DialogsPropTypes) => {
                     <div><textarea placeholder={"Enter message"}
                                    onChange={changeNewMessageCallBack}
                                    value={messageDataForNewPost}/></div>
-
                     <div>
                         <button onClick={addMessage}>Send Message</button>
                     </div>

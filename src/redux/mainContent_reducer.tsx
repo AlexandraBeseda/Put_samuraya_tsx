@@ -1,6 +1,5 @@
-import React from "react";
 import {NewPostType} from "../components/MainContent/Posts/lPosts/NewPost/NewPost";
-import {ActionsType, PostsDataArrayPropTypes} from "./redux";
+import {ActionsType, PostsDataArrayPropTypes} from "./store";
 
 const ADD_POST = "ADD_POST";
 const CHANGE_NEW_TEXT_CALLBACK = "CHANGE_NEW_TEXT_CALLBACK";
@@ -15,8 +14,7 @@ export const changeNewTextCallbackAC = (postNewText: string) => {
 }
 
 
-
-export const mainContentReducer=(state:PostsDataArrayPropTypes,action:ActionsType)=>{
+export const mainContent_reducer = (state: PostsDataArrayPropTypes, action: ActionsType) => {
     switch (action.type) {
         case ADD_POST:
             const newPost: NewPostType = {
@@ -31,7 +29,6 @@ export const mainContentReducer=(state:PostsDataArrayPropTypes,action:ActionsTyp
             state.textNewPost = action.postNewText;
             break;
     }
-
-
-    return state;}
+    return state;
+}
 

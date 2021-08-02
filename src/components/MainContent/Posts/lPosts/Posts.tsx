@@ -1,7 +1,7 @@
 import React, {ChangeEvent} from "react";
 import s from './Posts.module.css';
 import {NewPost, NewPostType} from "./NewPost/NewPost";
-import {ActionsType} from "../../../../redux/redux";
+import {ActionsType} from "../../../../redux/store";
 import {addPostAC, changeNewTextCallbackAC} from "../../../../redux/mainContent_reducer";
 
 
@@ -12,7 +12,9 @@ export type PostsDataArrayPropTypes = {
 }
 
 export const Posts = (props: PostsDataArrayPropTypes) => {
-    const postsElements = props.arrayPosts.map(p => <NewPost key={p.id} id={p.id} message={p.message}
+    const postsElements = props.arrayPosts.map(p => <NewPost key={p.id}
+                                                             id={p.id}
+                                                             message={p.message}
                                                              likes={p.likes}/>);
 
     const addPost = () => {
@@ -20,7 +22,8 @@ export const Posts = (props: PostsDataArrayPropTypes) => {
     }
 
     const changeNewTextCallback = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(changeNewTextCallbackAC(e.currentTarget.value));
+        const text=e.currentTarget.value;
+        props.dispatch(changeNewTextCallbackAC(text));
     }
 
     return (

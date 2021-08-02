@@ -1,5 +1,4 @@
-import React from "react";
-import {ActionsType, DialogsPropTypes, MessagePropTypes} from "./redux";
+import {ActionsType, DialogsPropTypes, MessagePropTypes} from "./store";
 
 const ADD_MESSAGE = "ADD_MESSAGE";
 const CHANGE_NEW_MESSAGE_CALLBACK = "CHANGE_NEW_MESSAGE_CALLBACK";

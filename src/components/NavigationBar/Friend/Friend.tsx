@@ -1,5 +1,5 @@
 import React from "react";
-import {HumanPropTypes} from "../../../redux/redux";
+import {HumanPropTypes} from "../../../redux/store";
 import {NavLink} from "react-router-dom";
 import s from "./Friend.module.css"
 

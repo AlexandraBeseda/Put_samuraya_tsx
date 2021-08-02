@@ -8,7 +8,7 @@ import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import {store, StoreType} from "./redux/redux";
+import {store, StoreType} from "./redux/store";
 
 type AppType = {
     store: StoreType
@@ -30,8 +30,7 @@ export const App = (props: AppType) => {
                     <Route path='/dialogsPage' render={() => <Dialogs arrayDialogs={openState.dialogsPage.dialogsData}
                                                                   arrayMessage={openState.dialogsPage.messagesDataPosts}
                                                                   messageDataForNewPost={openState.dialogsPage.messageDataNewPost}
-                                                                  dispatch={store.dispatch.bind(props.store)}
-                                                                  changeNewMessageCallBack={store.changeNewMessageCallback.bind(props.store)}/>}/>
+                                                                  dispatch={store.dispatch.bind(props.store)}/>}/>
                     <Route path='/news' component={News}/>
                     <Route path='/music' component={Music}/>
                     <Route path='/settings' component={Settings}/>

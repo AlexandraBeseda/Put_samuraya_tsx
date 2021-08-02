@@ -1,4 +1,4 @@
-import {addPostAC, changeNewTextCallbackAC, mainContentReducer} from "./mainContent_reducer";
+import {addPostAC, changeNewTextCallbackAC, mainContent_reducer} from "./mainContent_reducer";
 import {addMessageAC, changeNewMessageCallback, dialogsPage_reducer} from "./dialogsPage_reducer";
 
 export type MessagePropTypes = {
@@ -39,48 +39,15 @@ export type RootStateType = {
     friendsNavigationBar: friendsNavigationBarType
 }
 
-/*
-const ADD_POST = "ADD_POST";
-const CHANGE_NEW_TEXT_CALLBACK = "CHANGE_NEW_TEXT_CALLBACK";
-const ADD_MESSAGE = "ADD_MESSAGE";
-const CHANGE_NEW_MESSAGE_CALLBACK = "CHANGE_NEW_MESSAGE_CALLBACK";*/
-
-
 export type ActionsType =
     ReturnType<typeof addPostAC>
     | ReturnType<typeof changeNewTextCallbackAC>
     | ReturnType<typeof addMessageAC>
     | ReturnType<typeof changeNewMessageCallback>;
 
-/*export const addPostAC = () => ({type: ADD_POST} as const);
-
-export const changeNewTextCallbackAC = (postNewText: string) => {
-    return {
-        type: CHANGE_NEW_TEXT_CALLBACK,
-        postNewText: postNewText
-    } as const
-}*/
-
-/*export const addMessageAC = () => {
-    return {
-        type: ADD_MESSAGE,
-    } as const
-}
-export const changeNewMessageCallback = (newMessage: string) => {
-    return {
-        type: CHANGE_NEW_MESSAGE_CALLBACK,
-        newMessage: newMessage
-    } as const
-}*/
-
-
 export type StoreType = {
     _state: RootStateType,
     _callSubscriber: () => void,
-    addPost: () => void,
-    changeNewTextCallback: (newText: string) => void,
-    addMessage: () => void,
-    changeNewMessageCallback: (newMessage: string) => void,
     subscriber: (observer: () => void) => void,
     getState: () => RootStateType,
     dispatch: (action: ActionsType) => void
@@ -128,36 +95,36 @@ export const store: StoreType = {
     _callSubscriber() {
         console.log("state was changed")
     },
-    addPost() {
-        const newPost: NewPostType = {
-            id: 5,
-            message: this._state.mainContent.textNewPost,
-            likes: 155
-        };
-        this._state.mainContent.postsData.push(newPost);
-        this._state.mainContent.textNewPost = "";
-        this._callSubscriber();
-    },
+    /*   addPost() {
+           const newPost: NewPostType = {
+               id: 5,
+               message: this._state.mainContent.textNewPost,
+               likes: 155
+           };
+           this._state.mainContent.postsData.push(newPost);
+           this._state.mainContent.textNewPost = "";
+           this._callSubscriber();
+       },
 
-    changeNewTextCallback(newText: string) {
-        this._state.mainContent.textNewPost = newText;
-        this._callSubscriber();
-    },
+       changeNewTextCallback(newText: string) {
+           this._state.mainContent.textNewPost = newText;
+           this._callSubscriber();
+       },
 
-    addMessage() {
-        const newMessage: MessagePropTypes =
-            {
-                id: 6,
-                message: this._state.dialogsPage.messageDataNewPost
-            };
-        this._state.dialogsPage.messagesDataPosts.push(newMessage);
-        this._state.dialogsPage.messageDataNewPost = "";
-        this._callSubscriber();
-    },
-    changeNewMessageCallback(newMessage: string) {
-        this._state.dialogsPage.messageDataNewPost = newMessage;
-        this._callSubscriber();
-    },
+       addMessage() {
+           const newMessage: MessagePropTypes =
+               {
+                   id: 6,
+                   message: this._state.dialogsPage.messageDataNewPost
+               };
+           this._state.dialogsPage.messagesDataPosts.push(newMessage);
+           this._state.dialogsPage.messageDataNewPost = "";
+           this._callSubscriber();
+       },
+       changeNewMessageCallback(newMessage: string) {
+           this._state.dialogsPage.messageDataNewPost = newMessage;
+           this._callSubscriber();
+       },*/
 
 
     subscriber(observer) {
@@ -170,39 +137,8 @@ export const store: StoreType = {
 
     dispatch(action) {
 
-        this._state.mainContent = mainContentReducer(this._state.mainContent, action);
+        this._state.mainContent = mainContent_reducer(this._state.mainContent, action);
         this._state.dialogsPage = dialogsPage_reducer(this._state.dialogsPage, action)
         this._callSubscriber();
-
-  /*      if (action.type === ADD_POST) {
-            const newPost: NewPostType = {
-                id: 5,
-                message: this._state.mainContent.textNewPost,
-                likes: 155
-            };
-            this._state.mainContent.postsData.push(newPost);
-            this._state.mainContent.textNewPost = "";
-            this._callSubscriber();
-
-
-        } else if (action.type === CHANGE_NEW_TEXT_CALLBACK) {
-            /!* this._changeNewTextCallback(action.newText)*!/
-            this._state.mainContent.textNewPost = action.postNewText;
-            this._callSubscriber();
-        } else if (action.type === ADD_MESSAGE) {
-            const newMessage: MessagePropTypes = {
-                id: 6,
-                message: this._state.dialogsPage.messageDataNewPost
-            };
-            this._state.dialogsPage.messagesDataPosts.push(newMessage);
-            this._state.dialogsPage.messageDataNewPost = "";
-            this._callSubscriber();
-        } else if (action.type === CHANGE_NEW_MESSAGE_CALLBACK) {
-            this._state.dialogsPage.messageDataNewPost = action.newMessage;
-            this._callSubscriber();
-
-        }*/
     }
-
-
 }

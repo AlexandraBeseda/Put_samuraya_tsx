@@ -2,7 +2,7 @@ import React from "react";
 import {Posts} from "./Posts/lPosts/Posts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {NewPostType} from "./Posts/lPosts/NewPost/NewPost";
-import {ActionsType} from "../../redux/redux";
+import {ActionsType} from "../../redux/store";
 
 export type MainContentPropTypes = {
     arrayPosts: Array<NewPostType>,
