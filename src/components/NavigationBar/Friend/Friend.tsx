@@ -1,7 +1,7 @@
 import React from "react";
-import {HumanPropTypes} from "../../../redux/store";
 import {NavLink} from "react-router-dom";
 import s from "./Friend.module.css"
+import {HumanPropTypes} from "../../../redux/friendsNavigationBar_reducer";
 
 
 export const Friend = (props: HumanPropTypes) => {

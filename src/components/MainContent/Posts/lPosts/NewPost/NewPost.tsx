@@ -1,11 +1,7 @@
 import React from "react";
 import s from './NewPost.module.css';
+import {NewPostType} from "../../../../../redux/mainContent_reducer";
 
-export type NewPostType = {
-    id: number,
-    message: string,
-    likes: number
-}
 
 export const NewPost = (props: NewPostType) => {
     return (

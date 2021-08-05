@@ -1,7 +1,7 @@
-import {addPostAC, changeNewTextCallbackAC, mainContent_reducer} from "./mainContent_reducer";
-import {addMessageAC, changeNewMessageCallback, dialogsPage_reducer} from "./dialogsPage_reducer";
+import {addPostAC} from "./mainContent_reducer";
 
-export type MessagePropTypes = {
+
+/*export type MessagePropTypes = {
     id: number,
     message: string
 };
@@ -14,46 +14,47 @@ export type DialogsPropTypes = {
     dialogsData: Array<DialogItemPropTypes>,
     messagesDataPosts: Array<MessagePropTypes>,
     messageDataNewPost: string,
-};
-type NewPostType = {
+};*/
+/*type NewPostType = {
     id: number,
     message: string,
     likes: number
-};
-export type PostsDataArrayPropTypes = {
+};*/
+/*export type PostsDataArrayPropTypes = {
     textNewPost: string,
     postsData: Array<NewPostType>;
-};
+};*/
 
 
-export type friendsNavigationBarType = { friends: Array<HumanPropTypes> };
-export type HumanPropTypes = {
+/*export type friendsNavigationBarType = { friends: Array<HumanPropTypes> };*/
+
+/*export type HumanPropTypes = {
     id: number,
     name: string,
     avatar: string
-}
+}*/
 
-export type RootStateType = {
+/*export type RootStateType = {
     mainContent: PostsDataArrayPropTypes,
     dialogsPage: DialogsPropTypes,
-    friendsNavigationBar: friendsNavigationBarType
-}
+     friendsNavigationBar: friendsNavigationBarType
+}*/
 
-export type ActionsType =
+/*export type ActionsType =
     ReturnType<typeof addPostAC>
     | ReturnType<typeof changeNewTextCallbackAC>
     | ReturnType<typeof addMessageAC>
-    | ReturnType<typeof changeNewMessageCallback>;
+    | ReturnType<typeof changeNewMessageCallback>;*/
 
-export type StoreType = {
+/*export type StoreType = {
     _state: RootStateType,
     _callSubscriber: () => void,
-    subscriber: (observer: () => void) => void,
+    subscribe: (observer: () => void) => void,
     getState: () => RootStateType,
     dispatch: (action: ActionsType) => void
-}
+}*/
 
-export const store: StoreType = {
+/*export const store: StoreType = {
     _state: {
 
         mainContent: {
@@ -82,19 +83,24 @@ export const store: StoreType = {
                 {id: 4, message: "Try again tomorrow."},
                 {id: 5, message: "No."},
             ],
-        },
-        friendsNavigationBar: {
-            friends: [
-                {id: 1, name: "Jeka", avatar: "https://twitchgid.ru/wp-content/uploads/2020/11/avi-6.jpeg"},
-                {id: 2, name: "Lesya", avatar: "https://twitchgid.ru/wp-content/uploads/2020/11/avi-1.jpeg"},
-                {id: 3, name: "Vera", avatar: "https://twitchgid.ru/wp-content/uploads/2020/11/avi-16.jpeg"}]
-        }
-    },
+        },*/
 
 
-    _callSubscriber() {
+
+
+        //это закоментил Паша
+        // friendsNavigationBar: {
+        //     friends: [
+        //         {id: 1, name: "Jeka", avatar: "https://twitchgid.ru/wp-content/uploads/2020/11/avi-6.jpeg"},
+        //         {id: 2, name: "Lesya", avatar: "https://twitchgid.ru/wp-content/uploads/2020/11/avi-1.jpeg"},
+        //         {id: 3, name: "Vera", avatar: "https://twitchgid.ru/wp-content/uploads/2020/11/avi-16.jpeg"}]
+        // }
+   // },
+
+
+   /* _callSubscriber() {
         console.log("state was changed")
-    },
+    },*/
     /*   addPost() {
            const newPost: NewPostType = {
                id: 5,
@@ -127,7 +133,7 @@ export const store: StoreType = {
        },*/
 
 
-    subscriber(observer) {
+/*    subscribe(observer) {
         this._callSubscriber = observer;
     },
 
@@ -140,5 +146,6 @@ export const store: StoreType = {
         this._state.mainContent = mainContent_reducer(this._state.mainContent, action);
         this._state.dialogsPage = dialogsPage_reducer(this._state.dialogsPage, action)
         this._callSubscriber();
-    }
-}
+    }*/
+/*
+}*/

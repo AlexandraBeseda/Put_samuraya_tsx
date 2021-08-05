@@ -1,8 +1,8 @@
 import React, {ChangeEvent} from "react";
 import s from './Posts.module.css';
-import {NewPost, NewPostType} from "./NewPost/NewPost";
-import {ActionsType} from "../../../../redux/store";
-import {addPostAC, changeNewTextCallbackAC} from "../../../../redux/mainContent_reducer";
+import {NewPost} from "./NewPost/NewPost";
+import {addPostAC, changeNewTextCallbackAC, NewPostType} from "../../../../redux/mainContent_reducer";
+import {ActionsType} from "../../../../redux/reduxStore";
 
 
 export type PostsDataArrayPropTypes = {
