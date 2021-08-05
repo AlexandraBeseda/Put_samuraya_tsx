@@ -13,23 +13,26 @@ import {ActionsType} from "../../redux/reduxStore";
 
 
 export type DialogsPropTypes = {
-    arrayDialogs: Array<DialogItemPropTypes>,
+    /*arrayDialogs: Array<DialogItemPropTypes>,
     arrayMessage: Array<MessagePropTypes>,
     messageDataForNewPost: string,
-    dispatch: (action: ActionsType) => void
+    dispatch: (action: ActionsType) => void*/
+    addMessage:()=>void,
+    changeNewMessageCallBack:(e:ChangeEvent<HTMLTextAreaElement>)=>void,
+    arrayDialogs: Array<DialogItemPropTypes>,
+    arrayMessage: Array<MessagePropTypes>,
+    messageDataForNewPost: string
 }
 
 export const Dialogs = (props: DialogsPropTypes) => {
 
     const addMessage = () => {
-        props.dispatch(addMessageAC());
+        props.addMessage();
     }
 
     const changeNewMessageCallBack = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        const message=e.currentTarget.value;
-        props.dispatch(changeNewMessageCallback(message));
+        props.changeNewMessageCallBack(e);
     }
-
 
     const dialogsElements = props.arrayDialogs.map(d => <DialogItem key={d.id} name={d.name}
                                                                   id={d.id}

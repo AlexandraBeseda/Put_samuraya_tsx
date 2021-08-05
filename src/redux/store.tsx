@@ -1,60 +1,68 @@
-import {addPostAC} from "./mainContent_reducer";
 
+import {dialogsPage_reducer} from "./dialogsPage_reducer";
+/*
 
-/*export type MessagePropTypes = {
+type MessagePropTypes = {
     id: number,
     message: string
 };
-export type DialogItemPropTypes = {
+ type DialogItemPropTypes = {
     id: number,
     name: string,
     avatar: string
 };
-export type DialogsPropTypes = {
+type DialogsPropTypes = {
     dialogsData: Array<DialogItemPropTypes>,
     messagesDataPosts: Array<MessagePropTypes>,
     messageDataNewPost: string,
-};*/
-/*type NewPostType = {
+};
+type NewPostType = {
     id: number,
     message: string,
     likes: number
-};*/
-/*export type PostsDataArrayPropTypes = {
+};
+type PostsDataArrayPropTypes = {
     textNewPost: string,
     postsData: Array<NewPostType>;
-};*/
+};
 
+ type friendsNavigationBarType = { friends: Array<HumanPropTypes> };
 
-/*export type friendsNavigationBarType = { friends: Array<HumanPropTypes> };*/
-
-/*export type HumanPropTypes = {
+type HumanPropTypes = {
     id: number,
     name: string,
     avatar: string
-}*/
+}
 
-/*export type RootStateType = {
+type RootStateType = {
     mainContent: PostsDataArrayPropTypes,
     dialogsPage: DialogsPropTypes,
      friendsNavigationBar: friendsNavigationBarType
-}*/
+}
 
-/*export type ActionsType =
+/!*export type ActionsType =
     ReturnType<typeof addPostAC>
     | ReturnType<typeof changeNewTextCallbackAC>
     | ReturnType<typeof addMessageAC>
-    | ReturnType<typeof changeNewMessageCallback>;*/
+    | ReturnType<typeof changeNewMessageCallback>;*!/
 
-/*export type StoreType = {
+export type StoreType = {
     _state: RootStateType,
     _callSubscriber: () => void,
+    //типа пусть будет
+    addPost:()=>void,
+    changeNewTextCallback:(newText: string)=>void,
+    addMessage:()=>void,
+    changeNewMessageCallback:(newText: string)=>void,
+
+
     subscribe: (observer: () => void) => void,
     getState: () => RootStateType,
-    dispatch: (action: ActionsType) => void
-}*/
+    dispatch: (action: ActionsType) => void,
 
-/*export const store: StoreType = {
+}
+
+const store: StoreType = {
     _state: {
 
         mainContent: {
@@ -83,57 +91,53 @@ export type DialogsPropTypes = {
                 {id: 4, message: "Try again tomorrow."},
                 {id: 5, message: "No."},
             ],
-        },*/
+        },
+
+        friendsNavigationBar: {
+            friends: [
+                {id: 1, name: "Jeka", avatar: "https://twitchgid.ru/wp-content/uploads/2020/11/avi-6.jpeg"},
+                {id: 2, name: "Lesya", avatar: "https://twitchgid.ru/wp-content/uploads/2020/11/avi-1.jpeg"},
+                {id: 3, name: "Vera", avatar: "https://twitchgid.ru/wp-content/uploads/2020/11/avi-16.jpeg"}]
+        }
+    },
 
 
-
-
-        //это закоментил Паша
-        // friendsNavigationBar: {
-        //     friends: [
-        //         {id: 1, name: "Jeka", avatar: "https://twitchgid.ru/wp-content/uploads/2020/11/avi-6.jpeg"},
-        //         {id: 2, name: "Lesya", avatar: "https://twitchgid.ru/wp-content/uploads/2020/11/avi-1.jpeg"},
-        //         {id: 3, name: "Vera", avatar: "https://twitchgid.ru/wp-content/uploads/2020/11/avi-16.jpeg"}]
-        // }
-   // },
-
-
-   /* _callSubscriber() {
+    _callSubscriber() {
         console.log("state was changed")
-    },*/
-    /*   addPost() {
-           const newPost: NewPostType = {
-               id: 5,
-               message: this._state.mainContent.textNewPost,
-               likes: 155
-           };
-           this._state.mainContent.postsData.push(newPost);
-           this._state.mainContent.textNewPost = "";
-           this._callSubscriber();
-       },
+    },
+    addPost() {
+        const newPost: NewPostType = {
+            id: 5,
+            message: this._state.mainContent.textNewPost,
+            likes: 155
+        };
+        this._state.mainContent.postsData.push(newPost);
+        this._state.mainContent.textNewPost = "";
+        this._callSubscriber();
+    },
 
-       changeNewTextCallback(newText: string) {
-           this._state.mainContent.textNewPost = newText;
-           this._callSubscriber();
-       },
+    changeNewTextCallback(newText: string) {
+        this._state.mainContent.textNewPost = newText;
+        this._callSubscriber();
+    },
 
-       addMessage() {
-           const newMessage: MessagePropTypes =
-               {
-                   id: 6,
-                   message: this._state.dialogsPage.messageDataNewPost
-               };
-           this._state.dialogsPage.messagesDataPosts.push(newMessage);
-           this._state.dialogsPage.messageDataNewPost = "";
-           this._callSubscriber();
-       },
-       changeNewMessageCallback(newMessage: string) {
-           this._state.dialogsPage.messageDataNewPost = newMessage;
-           this._callSubscriber();
-       },*/
+    addMessage() {
+        const newMessage: MessagePropTypes =
+            {
+                id: 6,
+                message: this._state.dialogsPage.messageDataNewPost
+            };
+        this._state.dialogsPage.messagesDataPosts.push(newMessage);
+        this._state.dialogsPage.messageDataNewPost = "";
+        this._callSubscriber();
+    },
+    changeNewMessageCallback(newMessage: string) {
+        this._state.dialogsPage.messageDataNewPost = newMessage;
+        this._callSubscriber();
+    },
 
 
-/*    subscribe(observer) {
+    subscribe(observer) {
         this._callSubscriber = observer;
     },
 
@@ -146,6 +150,8 @@ export type DialogsPropTypes = {
         this._state.mainContent = mainContent_reducer(this._state.mainContent, action);
         this._state.dialogsPage = dialogsPage_reducer(this._state.dialogsPage, action)
         this._callSubscriber();
-    }*/
-/*
-}*/
+    }
+
+}
+export default store;
+*/

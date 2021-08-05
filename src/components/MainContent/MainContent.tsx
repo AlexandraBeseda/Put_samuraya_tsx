@@ -1,24 +1,24 @@
 import React from "react";
-import {Posts} from "./Posts/lPosts/Posts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {ActionsType} from "../../redux/reduxStore";
-import {NewPostType} from "../../redux/mainContent_reducer";
+import {ActionsType, ReducersStoreType} from "../../redux/reduxStore";
+import {PostsContainer} from "./Posts/lPosts/PostsContainer";
 
 
 export type MainContentPropTypes = {
-    arrayPosts: Array<NewPostType>,
-    textForNewPost: string,
-    dispatch: (action: ActionsType) => void,
+
+   dispatch: (action: ActionsType) => void,
+    state: ReducersStoreType
+
 }
 
 export const MainContent = (props: MainContentPropTypes) => {
     return (
         <div>
             <ProfileInfo/>
-            <Posts arrayPosts={props.arrayPosts}
-                   dispatch={props.dispatch}
-                   textForNewPost={props.textForNewPost}
-            />
+            <PostsContainer state={props.state}
+                            dispatch={props.dispatch}/>
+
+
         </div>
     );
 }

@@ -11,8 +11,10 @@ import {store} from "./redux/reduxStore"
 const renderEntireTree = () => {
 
 
-    ReactDOM.render(<App state={store.getState()}
-                         dispatch={store.dispatch.bind(store)}/>,
+    ReactDOM.render(
+            <App
+                state={store.getState()}
+                dispatch={store.dispatch.bind(store)}/>,
         document.getElementById('root')
     );
 }

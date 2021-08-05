@@ -7,8 +7,10 @@ import {ActionsType} from "../../../../redux/reduxStore";
 
 export type PostsDataArrayPropTypes = {
     arrayPosts: Array<NewPostType>,
-    textForNewPost: string,
-    dispatch: (action: ActionsType) => void,
+    textForNewPost: string,/*
+    dispatch: (action: ActionsType) => void,*/
+    addPost:()=>void,
+    changeNewTextCallback:(e: ChangeEvent<HTMLTextAreaElement>)=>void
 }
 
 export const Posts = (props: PostsDataArrayPropTypes) => {
@@ -18,12 +20,10 @@ export const Posts = (props: PostsDataArrayPropTypes) => {
                                                              likes={p.likes}/>);
 
     const addPost = () => {
-        props.dispatch(addPostAC());
+        props.addPost();
     }
-
     const changeNewTextCallback = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        const text=e.currentTarget.value;
-        props.dispatch(changeNewTextCallbackAC(text));
+       props.changeNewTextCallback(e);
     }
 
     return (
