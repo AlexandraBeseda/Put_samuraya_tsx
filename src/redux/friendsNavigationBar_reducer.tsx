@@ -22,7 +22,7 @@ const initialState: friendsNavigationBarType = {
 }
 
 
-export const friendsNavigationBar_reducer = (state: friendsNavigationBarType = initialState) => {
+export const friendsNavigationBar_reducer = (state: friendsNavigationBarType = initialState): friendsNavigationBarType => {
 
     return state;
 }

@@ -26,7 +26,6 @@ export type NewPostType = {
 }
 
 
-
 const initialState: PostsDataArrayPropTypes = {
     textNewPost: "",
     postsData: [
@@ -39,22 +38,20 @@ const initialState: PostsDataArrayPropTypes = {
 };
 
 
-export const mainContent_reducer = (state:PostsDataArrayPropTypes = initialState, action: ActionsType) => {
+export const mainContent_reducer = (state: PostsDataArrayPropTypes = initialState, action: ActionsType): PostsDataArrayPropTypes => {
     switch (action.type) {
-        case ADD_POST:
-            const newPost: NewPostType = {
-                id: 5,
-                message: state.textNewPost,
-                likes: 155
+        case ADD_POST: {
+            let stateCopy = {
+                ...state, postsData: [...state.postsData,
+                    {id: 5, message: state.textNewPost, likes: 155}]
             };
-            state.postsData.push(newPost);
-            state.textNewPost = "";
-            return state
+            stateCopy.textNewPost = " ";
+            return stateCopy
+        }
 
-        case CHANGE_NEW_TEXT_CALLBACK:
-            state.textNewPost = action.postNewText;
-            return state
-
+        case CHANGE_NEW_TEXT_CALLBACK: {
+            return {...state, textNewPost: action.postNewText};
+        }
         default:
             return state
     }

@@ -5,33 +5,18 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import {App} from './App';
 import {store} from "./redux/reduxStore"
+import {BrowserRouter} from "react-router-dom";
+import {Provider} from "react-redux";
 
+ReactDOM.render(
+    <BrowserRouter>
+        <Provider store={store}>
+            <App/>
+        </Provider>
+    </BrowserRouter>,
+    document.getElementById('root')
+);
 
-//это функция!
-const renderEntireTree = () => {
-
-
-    ReactDOM.render(
-            <App
-                state={store.getState()}
-                dispatch={store.dispatch.bind(store)}/>,
-        document.getElementById('root')
-    );
-}
-
-//тут мы её вызываем
-renderEntireTree();
-store.subscribe(renderEntireTree)
-
-// у меня  было написано subscribe вместо subscribe!
-/*store.subscribe(() => {
-    let state = store.getState();
-
-    renderEntireTree();
-});*/
-
-
-// store.subscribe(renderEntireTree);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

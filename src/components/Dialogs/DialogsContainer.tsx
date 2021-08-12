@@ -1,16 +1,59 @@
 import React, {ChangeEvent} from "react";
-import {addMessageAC, changeNewMessageCallback,} from "../../redux/dialogsPage_reducer";
-import {ActionsType, ReducersStoreType} from "../../redux/reduxStore";
+import {connect} from "react-redux";
+import {Dispatch} from "redux";
+import {
+    addMessageAC, changeNewMessageCallbackAC,
+    DialogItemPropTypes,
+    MessagePropTypes,
+} from "../../redux/dialogsPage_reducer";
+import {AppStateType} from "../../redux/reduxStore";
 import {Dialogs} from "./Dialogs";
 
-
-export type DialogsPropTypes = {
-
-    state: ReducersStoreType
-    dispatch: (action: ActionsType) => void
+type MapStatePropTypes = {
+    dialogsData: Array<DialogItemPropTypes>,
+    messagesDataPosts: Array<MessagePropTypes>,
+    messageDataNewPost: string,
 }
 
-export const DialogsContainer = (props: DialogsPropTypes) => {
+let MapStateToProps = (state: AppStateType): MapStatePropTypes => {
+    return {
+        dialogsData: state.dialogsPage.dialogsData,
+        messagesDataPosts: state.dialogsPage.messagesDataPosts,
+        messageDataNewPost: state.dialogsPage.messageDataNewPost
+    }
+}
+
+type MapDispatchToPropsType = {
+    addMessage: () => void,
+    changeNewMessageCallBack: (e: ChangeEvent<HTMLTextAreaElement>) => void
+}
+
+export type DialogsConnectMapPropTypes = MapStatePropTypes & MapDispatchToPropsType;
+
+let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
+    return {
+        addMessage: () => {
+            dispatch(addMessageAC())
+        },
+        changeNewMessageCallBack: (e: ChangeEvent<HTMLTextAreaElement>) => {
+            const message = e.currentTarget.value;
+            dispatch(changeNewMessageCallbackAC(message));
+        }
+    }
+}
+
+export const DialogsContainer = connect(MapStateToProps, mapDispatchToProps)(Dialogs)
+
+
+/*
+
+/*export type DialogsPropTypes = {
+
+     state: AppStateType
+     dispatch: (action: ActionsType) => void
+}
+
+export const DialogsContainer:React.FC<DialogsPropTypes> = (props) => {
 
     const addMessage = () => {
         props.dispatch(addMessageAC());
@@ -29,4 +72,4 @@ export const DialogsContainer = (props: DialogsPropTypes) => {
             arrayMessage={props.state.dialogsPage.messagesDataPosts}
             messageDataForNewPost={props.state.dialogsPage.messageDataNewPost}/>
     );
-}
+}*/

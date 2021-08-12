@@ -3,30 +3,25 @@ import {ActionsType} from "./reduxStore";
 const ADD_MESSAGE = "ADD_MESSAGE";
 const CHANGE_NEW_MESSAGE_CALLBACK = "CHANGE_NEW_MESSAGE_CALLBACK";
 
-
 export const addMessageAC = () => {
     return {
         type: ADD_MESSAGE,
     } as const
 }
-export const changeNewMessageCallback = (newMessage: string) => {
+export const changeNewMessageCallbackAC = (newMessage: string) => {
     return {
         type: CHANGE_NEW_MESSAGE_CALLBACK,
         newMessage: newMessage
     } as const
 }
-
-
 export type DialogsPropTypes = {
     dialogsData: Array<DialogItemPropTypes>,
     messagesDataPosts: Array<MessagePropTypes>,
     messageDataNewPost: string,
 }
-
 export type MessagePropTypes = {
     id: number,
     message: string,
-
 };
 export type DialogItemPropTypes = {
     id: number,
@@ -34,8 +29,7 @@ export type DialogItemPropTypes = {
     avatar: string
 };
 
-
-const initialState: DialogsPropTypes = {
+const initialState = {
     dialogsData: [
         {id: 1, name: "Yauheni", avatar: "https://twitchgid.ru/wp-content/uploads/2020/11/avi-19.jpeg"},
         {id: 2, name: "Nina", avatar: "https://twitchgid.ru/wp-content/uploads/2020/11/avi-10.jpeg"},
@@ -53,25 +47,23 @@ const initialState: DialogsPropTypes = {
     messageDataNewPost: "",
 };
 
-export const dialogsPage_reducer = (state: DialogsPropTypes = initialState, action: ActionsType) => {
+export const dialogsPage_reducer = (state: DialogsPropTypes = initialState, action: ActionsType): DialogsPropTypes => {
 
     switch (action.type) {
-        case ADD_MESSAGE:
-            const newMessage: MessagePropTypes = {
-                id: 6,
-                message: state.messageDataNewPost
+        case ADD_MESSAGE: {
+            let stateCopy = {
+                ...state,
+                messagesDataPosts:
+                    [...state.messagesDataPosts,
+                        {id: 6, message: state.messageDataNewPost}]
             };
-            state.messagesDataPosts.push(newMessage);
-            state.messageDataNewPost = "";
-            return state
-
-        case CHANGE_NEW_MESSAGE_CALLBACK:
-            state.messageDataNewPost = action.newMessage;
-            return state
-
+            stateCopy.messageDataNewPost = " ";
+            return stateCopy
+        }
+        case CHANGE_NEW_MESSAGE_CALLBACK: {
+            return {...state, messageDataNewPost: action.newMessage};
+        }
         default:
             return state
     }
-
 }
-
