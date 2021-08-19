@@ -2,19 +2,16 @@ import React from "react";
 import s from './NavigationBar.module.css';
 import {NavLink} from "react-router-dom";
 import {Friend} from "./Friend/Friend";
-import { HumanPropTypes} from "../../redux/friendsNavigationBar_reducer";
+import {HumanPropTypes} from "../../redux/friendsNavigationBar_reducer";
 
-type NavigationBarPropTypes = {
-   /* arrayFriends: Array<HumanPropTypes>*/
-}
 
-export const NavigationBar: React.FC<NavigationBarPropTypes>  = (props) => {
+export const NavigationBar: React.FC = () => {
 
-  /*  let friendElements = props.arrayFriends.map(f => <Friend
-        key={f.id}
-        id={f.id}
-        name={f.name}
-        avatar={f.avatar}/>);*/
+    /*  let friendElements = props.arrayFriends.map(f => <Friend
+          key={f.id}
+          id={f.id}
+          name={f.name}
+          avatar={f.avatar}/>);*/
 
     return (
         <nav className={s.nav}>
@@ -33,8 +30,11 @@ export const NavigationBar: React.FC<NavigationBarPropTypes>  = (props) => {
             <div className={`${s.item}`}>
                 <NavLink to="settings" activeClassName={s.activeLink}>Settings</NavLink>
             </div>
+            <div className={`${s.item}`}>
+                <NavLink to="users" activeClassName={s.activeLink}>Users</NavLink>
+            </div>
 
-          {/*  <div className={s.forFriendsBar}>
+            {/*  <div className={s.forFriendsBar}>
                 <h1>Friends</h1>
                 <div>{friendElements}</div>
             </div>*/}

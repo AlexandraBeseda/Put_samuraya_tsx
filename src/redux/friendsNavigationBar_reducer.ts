@@ -1,6 +1,3 @@
-import React from "react";
-
-
 export type friendsNavigationBarType = {
     friendsNavigationBar:
         { friends: Array<HumanPropTypes> }

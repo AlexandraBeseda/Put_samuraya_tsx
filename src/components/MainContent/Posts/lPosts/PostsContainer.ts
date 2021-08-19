@@ -1,5 +1,4 @@
-import React, {ChangeEvent} from "react";
-
+import  {ChangeEvent} from "react";
 import {addPostAC, changeNewTextCallbackAC, NewPostType} from "../../../../redux/mainContent_reducer";
 import { AppStateType} from "../../../../redux/reduxStore";
 import {Posts} from "./Posts";

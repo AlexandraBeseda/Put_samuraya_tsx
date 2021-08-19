@@ -8,11 +8,9 @@ import {Settings} from "./components/Settings/Settings";
 import {BrowserRouter, Route} from "react-router-dom";
 import {NavigationBar} from "./components/NavigationBar/NavigationBar";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
+import {UsersContainer} from "./components/Users/UsersContainer";
 
-type AppType = {
-
-}
-export const App: React.FC<AppType> = (props) => {
+export const App: React.FC = () => {
 
     return (
         <BrowserRouter>
@@ -21,11 +19,13 @@ export const App: React.FC<AppType> = (props) => {
                 <NavigationBar/>
                 <div className='app-wrapper-content'>
                     <Route path='/profile'
-                           render={() => <MainContent />}/>
-                    <Route path='/dialogsPage' render={() => <DialogsContainer />}/>
+                           render={() => <MainContent/>}/>
+                    <Route path='/dialogsPage' render={() => <DialogsContainer/>}/>
                     <Route path='/news' component={News}/>
                     <Route path='/music' component={Music}/>
                     <Route path='/settings' component={Settings}/>
+                    <Route path='/users' render={() => <UsersContainer/>}/>
+
                 </div>
             </div>
         </BrowserRouter>
