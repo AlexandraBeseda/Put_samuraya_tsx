@@ -1,3 +1,7 @@
 .userPhoto {
-   height: 150px;
+    height: 150px;
+}
+
+.selectedPage {
+    font-weight: bold;
 }

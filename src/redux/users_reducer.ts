@@ -3,6 +3,9 @@ import {ActionsType} from "./reduxStore";
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
 const SET_USERS = "SET_USERS";
+const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
+const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT";
+
 
 export const followAC = (userID: number) => {
     return {
@@ -22,23 +25,45 @@ export const setUsersAC = (newUsers: UserTypes[]) => {
         newUsers
     } as const
 }
+
+export const setCurrentPageAC = (currentPage: number) => {
+    return {
+        type: SET_CURRENT_PAGE,
+        currentPage
+    } as const
+}
+
+export const setTotalUsersCountAC = (count: number) => {
+    return {
+        type: SET_TOTAL_USERS_COUNT,
+        count
+    } as const
+}
 export type UserTypes = {
     followed: boolean
     id: number
     name: string
     photos: {
         small: string | null,
-        large: string | null }
+        large: string | null
+    }
     status: string | null
     uniqueUrlName: string | null
 };
 
 export type UsersPropTypes = {
     users: Array<UserTypes>
+    pageSize: number,
+    totalUsersCount: number,
+    currentPage: number,
 };
 
 const initialState: UsersPropTypes = {
-    users: []
+    users: [],
+    // totalCount:
+    pageSize: 5,
+    totalUsersCount: 0,
+    currentPage: 2,
 };
 
 export const users_reducer = (state: UsersPropTypes = initialState, action: ActionsType): UsersPropTypes => {
@@ -67,8 +92,13 @@ export const users_reducer = (state: UsersPropTypes = initialState, action: Acti
             }
         }
         case SET_USERS: {
-            debugger
-            return {...state, users: [...state.users, ...action.newUsers]}
+            return {...state, users: action.newUsers}
+        }
+        case SET_CURRENT_PAGE: {
+            return {...state, currentPage: action.currentPage}
+        }
+        case SET_TOTAL_USERS_COUNT: {
+            return {...state, totalUsersCount: action.count}
         }
         default:
             return state

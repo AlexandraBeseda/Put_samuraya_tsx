@@ -2,7 +2,7 @@ import {combineReducers, createStore} from "redux";
 import {addPostAC, changeNewTextCallbackAC, mainContent_reducer} from "./mainContent_reducer";
 import {addMessageAC, changeNewMessageCallbackAC, dialogsPage_reducer} from "./dialogsPage_reducer";
 import {friendsNavigationBar_reducer} from "./friendsNavigationBar_reducer";
-import {followAC, setUsersAC, unFollowAC, users_reducer} from "./users_reducer";
+import {followAC, setCurrentPageAC, setTotalUsersCountAC, setUsersAC, unFollowAC, users_reducer} from "./users_reducer";
 
 
 export type ActionsType =
@@ -12,7 +12,9 @@ export type ActionsType =
     | ReturnType<typeof changeNewMessageCallbackAC>
     | ReturnType<typeof followAC>
     | ReturnType<typeof unFollowAC>
-    | ReturnType<typeof setUsersAC>;
+    | ReturnType<typeof setUsersAC>
+    | ReturnType<typeof setCurrentPageAC>
+    | ReturnType<typeof setTotalUsersCountAC>;
 
 
 const rootReducer = combineReducers(
