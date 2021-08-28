@@ -4,14 +4,6 @@ import {NewPost} from "./NewPost/NewPost";
 
 import {PostsConnectMapPropTypes} from "./PostsContainer";
 
-
-/*export type PostsDataArrayPropTypes = {
-    arrayPosts: Array<NewPostType>,
-    textForNewPost: string,
-    addPost:()=>void,
-    changeNewTextCallback:(e: ChangeEvent<HTMLTextAreaElement>)=>void
-}*/
-
 export const Posts: React.FC<PostsConnectMapPropTypes> = (props) => {
     const postsElements = props.postsData.map(p => <NewPost key={p.id}
                                                             id={p.id}

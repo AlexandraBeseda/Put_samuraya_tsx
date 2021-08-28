@@ -1,20 +1,24 @@
 import {combineReducers, createStore} from "redux";
-import {addPostAC, changeNewTextCallbackAC, mainContent_reducer} from "./mainContent_reducer";
-import {addMessageAC, changeNewMessageCallbackAC, dialogsPage_reducer} from "./dialogsPage_reducer";
+import {addPost, changeNewTextCallback, mainContent_reducer, setUserProfile} from "./mainContent_reducer";
+import {addMessage, changeNewMessageCallback, dialogsPage_reducer} from "./dialogsPage_reducer";
 import {friendsNavigationBar_reducer} from "./friendsNavigationBar_reducer";
-import {followAC, setCurrentPageAC, setTotalUsersCountAC, setUsersAC, unFollowAC, users_reducer} from "./users_reducer";
+import {
+    follow, setCurrentPage, setTotalUsersCount, setUsers, toggleIsFetching, unFollow, users_reducer
+} from "./users_reducer";
 
 
 export type ActionsType =
-    ReturnType<typeof addPostAC>
-    | ReturnType<typeof changeNewTextCallbackAC>
-    | ReturnType<typeof addMessageAC>
-    | ReturnType<typeof changeNewMessageCallbackAC>
-    | ReturnType<typeof followAC>
-    | ReturnType<typeof unFollowAC>
-    | ReturnType<typeof setUsersAC>
-    | ReturnType<typeof setCurrentPageAC>
-    | ReturnType<typeof setTotalUsersCountAC>;
+    ReturnType<typeof addPost>
+    | ReturnType<typeof changeNewTextCallback>
+    | ReturnType<typeof addMessage>
+    | ReturnType<typeof changeNewMessageCallback>
+    | ReturnType<typeof follow>
+    | ReturnType<typeof unFollow>
+    | ReturnType<typeof setUsers>
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setTotalUsersCount>
+    | ReturnType<typeof toggleIsFetching>
+    | ReturnType<typeof setUserProfile>;
 
 
 const rootReducer = combineReducers(
