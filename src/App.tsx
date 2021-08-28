@@ -18,7 +18,7 @@ export const App: React.FC = () => {
                 <Header/>
                 <NavigationBar/>
                 <div className='app-wrapper-content'>
-                    <Route path='/profile'
+                    <Route path='/profile/:userId?'
                            render={() => <MainContentContainer/>}/>
                     <Route path='/dialogsPage' render={() => <DialogsContainer/>}/>
                     <Route path='/news' component={News}/>
