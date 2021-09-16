@@ -1,5 +1,7 @@
 import {ActionsType} from "./reduxStore";
 import {ChangeEvent} from "react";
+import {Dispatch} from "redux";
+import {userAPI} from "../api/api";
 
 export const addPost = () => ({type: "ADD_POST"} as const);
 
@@ -84,5 +86,14 @@ export const mainContent_reducer = (state: PostsDataArrayPropTypes = initialStat
         }
         default:
             return state
+    }
+}
+
+
+export const getUserProfileThunkCreator = (userID: string) => {
+    return (dispatch: Dispatch) => {
+        userAPI.getUserProfile(userID)
+            .then(data => {dispatch(setUserProfile(data));
+            })
     }
 }

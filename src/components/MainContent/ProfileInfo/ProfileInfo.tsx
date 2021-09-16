@@ -13,8 +13,6 @@ export const ProfileInfo: React.FC<ProfileInfoPropTypes> = (props) => {
         return (<Preloader/>)
     }
 
-
-
     return (
         <div>
             <div>

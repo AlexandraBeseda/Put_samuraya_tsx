@@ -12,7 +12,7 @@ export const Dialogs: React.FC<DialogsConnectMapPropTypes> = (props) => {
     }
 
     const changeNewMessageCallBack = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        let newMessage=e.currentTarget.value;
+        let newMessage = e.currentTarget.value;
         props.changeNewMessageCallback(newMessage);
     }
 

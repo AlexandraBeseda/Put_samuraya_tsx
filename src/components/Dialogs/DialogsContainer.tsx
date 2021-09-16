@@ -8,6 +8,7 @@ import {
 } from "../../redux/dialogsPage_reducer";
 import {AppStateType} from "../../redux/reduxStore";
 import {Dialogs} from "./Dialogs";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 class DialogsContainer extends React.Component<DialogsConnectMapPropTypes> {
 
@@ -15,10 +16,10 @@ class DialogsContainer extends React.Component<DialogsConnectMapPropTypes> {
         return (
             <>
                 <Dialogs dialogsData={this.props.dialogsData}
-                       messagesDataPosts={this.props.messagesDataPosts}
-                       messageDataNewPost={this.props.messageDataNewPost}
-                       addMessage={this.props.addMessage}
-                       changeNewMessageCallback={this.props.changeNewMessageCallback}/>
+                         messagesDataPosts={this.props.messagesDataPosts}
+                         messageDataNewPost={this.props.messageDataNewPost}
+                         addMessage={this.props.addMessage}
+                         changeNewMessageCallback={this.props.changeNewMessageCallback}/>
             </>
         );
     }
@@ -28,13 +29,14 @@ type MapStatePropTypes = {
     dialogsData: Array<DialogItemPropTypes>,
     messagesDataPosts: Array<MessagePropTypes>,
     messageDataNewPost: string,
+
 }
 
 let MapStateToProps = (state: AppStateType): MapStatePropTypes => {
     return {
         dialogsData: state.dialogsPage.dialogsData,
         messagesDataPosts: state.dialogsPage.messagesDataPosts,
-        messageDataNewPost: state.dialogsPage.messageDataNewPost
+        messageDataNewPost: state.dialogsPage.messageDataNewPost,
     }
 }
 
@@ -45,4 +47,4 @@ type MapDispatchToPropsType = {
 
 export type DialogsConnectMapPropTypes = MapStatePropTypes & MapDispatchToPropsType;
 
-export default connect(MapStateToProps, {addMessage, changeNewMessageCallback})(DialogsContainer)
+export default withAuthRedirect(connect(MapStateToProps, {addMessage, changeNewMessageCallback})(DialogsContainer))

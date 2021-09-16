@@ -22,10 +22,10 @@ export const Users: React.FC<UsersConnectMapPropTypes & UsersAPIComponentPropTyp
             <div>
                 {pages.map(p => {
                     return <span key={p.toString()}
-                        className={(props.currentPage === p) ? s.selectedPage : ""}
-                        onClick={() => {
-                            props.onPageChanged(p)
-                        }}>{p}</span>
+                                 className={(props.currentPage === p) ? s.selectedPage : ""}
+                                 onClick={() => {
+                                     props.onPageChanged(p)
+                                 }}>{p}</span>
                 })}
             </div>
             {props.users.map((u) =>
@@ -34,17 +34,13 @@ export const Users: React.FC<UsersConnectMapPropTypes & UsersAPIComponentPropTyp
                             <span>
                         <div>
                             <NavLink to={"/profile/" + u.id}><img src={u.photos.small ? u.photos.small : userPhoto}
-                                                                 alt="yourFace"
-                                                                 className={s.userPhoto}/></NavLink>
+                                                                  alt="yourFace"
+                                                                  className={s.userPhoto}/></NavLink>
                         </div>
                         <div>
                             {u.followed ?
-                                <button onClick={() => {
-                                    props.unFollow(u.id)
-                                }}>Follow</button>
-                                : <button onClick={() => {
-                                    props.follow(u.id)
-                                }}>Unfollow</button>}
+                                <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {props.unFollow(u.id)}}>Unfollow</button>
+                                : <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {props.follow(u.id)}}>Follow</button>}
                         </div>
                     </span>
                     <span>

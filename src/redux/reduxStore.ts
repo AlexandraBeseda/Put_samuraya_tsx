@@ -1,10 +1,18 @@
-import {combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, createStore} from "redux";
 import {addPost, changeNewTextCallback, mainContent_reducer, setUserProfile} from "./mainContent_reducer";
 import {addMessage, changeNewMessageCallback, dialogsPage_reducer} from "./dialogsPage_reducer";
 import {friendsNavigationBar_reducer} from "./friendsNavigationBar_reducer";
 import {
-    follow, setCurrentPage, setTotalUsersCount, setUsers, toggleIsFetching, unFollow, users_reducer
+  followSuccess,
+    setCurrentPage,
+    setTotalUsersCount,
+    setUsers, toggleFollowingFetching,
+    toggleIsFetching,
+    unFollowSuccess,
+    users_reducer
 } from "./users_reducer";
+import {auth_reducer, setAuthUserData} from "./auth_reducer";
+import thunkMiddleware from "redux-thunk"
 
 
 export type ActionsType =
@@ -12,13 +20,15 @@ export type ActionsType =
     | ReturnType<typeof changeNewTextCallback>
     | ReturnType<typeof addMessage>
     | ReturnType<typeof changeNewMessageCallback>
-    | ReturnType<typeof follow>
-    | ReturnType<typeof unFollow>
+    | ReturnType<typeof followSuccess>
+    | ReturnType<typeof unFollowSuccess>
     | ReturnType<typeof setUsers>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toggleIsFetching>
-    | ReturnType<typeof setUserProfile>;
+    | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof setAuthUserData>
+    | ReturnType<typeof toggleFollowingFetching>;
 
 
 const rootReducer = combineReducers(
@@ -26,10 +36,11 @@ const rootReducer = combineReducers(
         mainContent: mainContent_reducer,
         dialogsPage: dialogsPage_reducer,
         navigationBar: friendsNavigationBar_reducer,
-        usersPage: users_reducer
+        usersPage: users_reducer,
+        auth: auth_reducer,
     }
 )
-export const store = createStore(rootReducer);
+export const store = createStore(rootReducer,applyMiddleware(thunkMiddleware));
 
 export type AppStateType = ReturnType<typeof rootReducer>
 
