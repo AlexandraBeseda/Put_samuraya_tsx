@@ -3,8 +3,8 @@ import {addPost, changeNewTextCallback, mainContent_reducer, setUserProfile} fro
 import {addMessage, changeNewMessageCallback, dialogsPage_reducer} from "./dialogsPage_reducer";
 import {friendsNavigationBar_reducer} from "./friendsNavigationBar_reducer";
 import {
-  followSuccess,
-    setCurrentPage,
+    followSuccess,
+    setCurrentPage, setStatus,
     setTotalUsersCount,
     setUsers, toggleFollowingFetching,
     toggleIsFetching,
@@ -28,8 +28,8 @@ export type ActionsType =
     | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setAuthUserData>
-    | ReturnType<typeof toggleFollowingFetching>;
-
+    | ReturnType<typeof toggleFollowingFetching>
+    | ReturnType<typeof setStatus>;
 
 const rootReducer = combineReducers(
     {
@@ -40,7 +40,7 @@ const rootReducer = combineReducers(
         auth: auth_reducer,
     }
 )
-export const store = createStore(rootReducer,applyMiddleware(thunkMiddleware));
+export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
 export type AppStateType = ReturnType<typeof rootReducer>
 

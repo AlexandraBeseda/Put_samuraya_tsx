@@ -1,21 +1,22 @@
 import React, {ChangeEvent} from "react";
 import {addPost, changeNewTextCallback, NewPostType} from "../../../../redux/mainContent_reducer";
-import { AppStateType} from "../../../../redux/reduxStore";
+import {AppStateType} from "../../../../redux/reduxStore";
 import {Posts} from "./Posts";
 
 import {connect} from "react-redux";
+import {compose} from "redux";
 
 class PostsContainer extends React.Component<PostsConnectMapPropTypes> {
 
     render() {
         return (
             <>
-         <Posts addPost={this.props.addPost}
-                postsData={this.props.postsData}
-                changeNewTextCallback={this.props.changeNewTextCallback}
-                textNewPost={this.props.textNewPost}/>
-        </>
-    );
+                <Posts addPost={this.props.addPost}
+                       postsData={this.props.postsData}
+                       changeNewTextCallback={this.props.changeNewTextCallback}
+                       textNewPost={this.props.textNewPost}/>
+            </>
+        );
     }
 }
 
@@ -50,5 +51,9 @@ let mapStateToProps = (state: AppStateType): MapStatePropTypes => {
     }
 }*/
 
-export default connect(mapStateToProps, {addPost, changeNewTextCallback})(PostsContainer);
+/*export default connect(mapStateToProps, {addPost, changeNewTextCallback})(PostsContainer);*/
+
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {addPost, changeNewTextCallback})
+)(PostsContainer);
 

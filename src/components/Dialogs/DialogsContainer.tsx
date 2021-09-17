@@ -9,6 +9,7 @@ import {
 import {AppStateType} from "../../redux/reduxStore";
 import {Dialogs} from "./Dialogs";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 class DialogsContainer extends React.Component<DialogsConnectMapPropTypes> {
 
@@ -47,4 +48,9 @@ type MapDispatchToPropsType = {
 
 export type DialogsConnectMapPropTypes = MapStatePropTypes & MapDispatchToPropsType;
 
-export default withAuthRedirect(connect(MapStateToProps, {addMessage, changeNewMessageCallback})(DialogsContainer))
+/*export default withAuthRedirect(connect(MapStateToProps, {addMessage, changeNewMessageCallback})(DialogsContainer))*/
+
+export default compose<React.ComponentType>(
+    connect(MapStateToProps, {addMessage, changeNewMessageCallback}),
+    withAuthRedirect
+)(DialogsContainer)

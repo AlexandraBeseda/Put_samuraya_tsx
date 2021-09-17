@@ -1,7 +1,7 @@
 import {AppStateType} from "../../redux/reduxStore";
 import {connect} from "react-redux";
 import {
- followThunkCreator, getUsersThunkCreator,
+    followThunkCreator, getUsersThunkCreator,
     setCurrentPage,
     toggleFollowingFetching, unFollowThunkCreator,
 
@@ -10,6 +10,7 @@ import {
 import React from "react";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
+import {compose} from "redux";
 
 
 class UsersContainer extends React.Component<UsersConnectMapPropTypes> {
@@ -70,12 +71,23 @@ type MapDispatchToPropsType = {
 
 export type UsersConnectMapPropTypes = MapStatePropTypes & MapDispatchToPropsType;
 
-export default connect(MapStateToProps,
+/*export default connect(MapStateToProps,
     {
         setCurrentPage,
         toggleFollowingFetching,
         getUsers: getUsersThunkCreator,
         follow:followThunkCreator,
         unFollow:unFollowThunkCreator
-    })(UsersContainer);
+    })(UsersContainer);*/
+
+export default compose<React.ComponentType>(
+    connect(MapStateToProps,
+        {
+            setCurrentPage,
+            toggleFollowingFetching,
+            getUsers: getUsersThunkCreator,
+            follow: followThunkCreator,
+            unFollow: unFollowThunkCreator
+        }),
+)(UsersContainer)
 

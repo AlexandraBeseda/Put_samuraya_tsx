@@ -2,6 +2,14 @@ import {ActionsType} from "./reduxStore";
 import {Dispatch} from "redux";
 import {userAPI} from "../api/api";
 
+export const setStatus = (status: string) => {
+    return {
+        type: "SET_STATUS",
+        status
+    } as const
+}
+
+
 export const followSuccess = (userID: number) => {
     return {
         type: "FOLLOW",
