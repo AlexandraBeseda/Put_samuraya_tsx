@@ -4,7 +4,6 @@ import React from "react";
 export type MessagePropTypes = {
     id: number,
     message: string
-    messageDataForNewPost:string,
 }
 export const Message = (props: MessagePropTypes) => {
 

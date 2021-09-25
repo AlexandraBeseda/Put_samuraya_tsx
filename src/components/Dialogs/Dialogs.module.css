@@ -28,3 +28,10 @@
 .message{
     padding: 10px;
 }
+
+.errorInput {
+    border: solid red 2px;
+}
+.errorText{
+    color: red;
+}

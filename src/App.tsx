@@ -9,7 +9,7 @@ import UsersContainer from "./components/Users/UsersContainer";
 import MainContentContainer from "./components/MainContent/ProfileInfo/MainContentContainer";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import {Login} from "./components/Login/Login";
+import Login from "./components/Login/Login";
 
 export const App: React.FC = () => {
 
@@ -26,7 +26,7 @@ export const App: React.FC = () => {
                     <Route path='/music' component={Music}/>
                     <Route path='/settings' component={Settings}/>
                     <Route path='/users' render={() => <UsersContainer/>}/>
-                    <Route path='/login' render={() => <Login/>}/>
+                    <Route path='/authMe' render={() => <Login />}/>
 
                 </div>
             </div>

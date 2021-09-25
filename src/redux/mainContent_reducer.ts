@@ -1,17 +1,9 @@
 import {ActionsType} from "./reduxStore";
-import {ChangeEvent} from "react";
 import {Dispatch} from "redux";
 import {profileAPI, userAPI} from "../api/api";
 import {setStatus} from "./users_reducer";
 
-export const addPost = () => ({type: "ADD_POST"} as const);
-
-export const changeNewTextCallback = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    return {
-        type: "CHANGE_NEW_TEXT_CALLBACK",
-        postNewText: e.currentTarget.value,
-    } as const
-}
+export const addPost = (newPost: string) => ({type: "ADD_POST", newPost} as const);
 
 export const setUserProfile = (userProfiles: ProfileType) => {
     return {
@@ -45,7 +37,6 @@ export type ProfileType = {
 }
 
 export type PostsDataArrayPropTypes = {
-    textNewPost: string,
     postsData: Array<NewPostType>,
     usersProfiles: ProfileType | null,
     status: string,
@@ -58,7 +49,6 @@ export type NewPostType = {
 }
 
 const initialState: PostsDataArrayPropTypes = {
-    textNewPost: "",
     postsData: [
         {id: 1, message: 'Hello!How are you?', likes: 10},
         {id: 2, message: 'I saw you yesterday', likes: 30},
@@ -75,14 +65,12 @@ export const mainContent_reducer = (state: PostsDataArrayPropTypes = initialStat
         case "ADD_POST": {
             let stateCopy = {
                 ...state, postsData: [...state.postsData,
-                    {id: 5, message: state.textNewPost, likes: 155}]
+                    {id: 5, message: action.newPost, likes: 155}]
             };
-            stateCopy.textNewPost = " ";
+            //stateCopy.textNewPost = " ";
             return stateCopy
         }
-        case "CHANGE_NEW_TEXT_CALLBACK": {
-            return {...state, textNewPost: action.postNewText};
-        }
+
         case "SET_USER_PROFILE": {
             return {...state, usersProfiles: action.usersProfiles}
         }

@@ -20,6 +20,8 @@ class MainContentContainer extends React.Component <PropsType> {
     componentDidMount() {
         let userId = this.props.match.params.userId;
         if (!userId) {
+            //TODO тут в предыдуще виде Димыч магическим образом присвоил при несуществующем айди тот самый айди
+            //на будущее
             userId = JSON.stringify(2);
         }
         this.props.getUsersProfile(userId);
@@ -40,6 +42,8 @@ class MainContentContainer extends React.Component <PropsType> {
 type MapStatePropTypes = {
     usersProfiles: ProfileType | null,
     status: string,
+    authorizedUserID: null | string,
+    isAuth: boolean,
 }
 type MapDispatchToPropsType = {
     setUserProfile: (userProfiles: ProfileType) => void,
@@ -57,6 +61,8 @@ let MapStateToProps = (state: AppStateType): MapStatePropTypes => {
     return {
         usersProfiles: state.mainContent.usersProfiles,
         status: state.mainContent.status,
+        authorizedUserID: state.auth.userId,
+        isAuth: state.auth.isAuth,
     }
 }
 

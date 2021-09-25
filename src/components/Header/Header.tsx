@@ -11,7 +11,11 @@ export const Header: React.FC<HeaderConnectMapPropTypes> = (props) => {
                 src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjwmALuU19xPRQx_5_ZQK8QqG5HpA79AD5Iw&usqp=CAU'
                 alt="nothingSpecial"/>
             <div className={s.loginBlock}>
-                {props.authUsersData.isAuth ? props.authUsersData.login : <NavLink to={"/login"}>Login</NavLink>}
+
+
+                {props.authUsersData.isAuth
+                    ? <div>{props.authUsersData.login} - <button onClick={props.logOut}>Log Out</button></div>
+                    : <NavLink to={"/authMe"}>Login</NavLink>}
 
             </div>
         </header>

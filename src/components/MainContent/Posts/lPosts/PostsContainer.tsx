@@ -1,5 +1,5 @@
-import React, {ChangeEvent} from "react";
-import {addPost, changeNewTextCallback, NewPostType} from "../../../../redux/mainContent_reducer";
+import React from "react";
+import {addPost, NewPostType} from "../../../../redux/mainContent_reducer";
 import {AppStateType} from "../../../../redux/reduxStore";
 import {Posts} from "./Posts";
 
@@ -12,9 +12,7 @@ class PostsContainer extends React.Component<PostsConnectMapPropTypes> {
         return (
             <>
                 <Posts addPost={this.props.addPost}
-                       postsData={this.props.postsData}
-                       changeNewTextCallback={this.props.changeNewTextCallback}
-                       textNewPost={this.props.textNewPost}/>
+                       postsData={this.props.postsData}/>
             </>
         );
     }
@@ -22,10 +20,8 @@ class PostsContainer extends React.Component<PostsConnectMapPropTypes> {
 
 type MapDispatchToPropsType = {
     addPost: () => void,
-    changeNewTextCallback: (e: ChangeEvent<HTMLTextAreaElement>) => void
 }
 type MapStatePropTypes = {
-    textNewPost: string
     postsData: Array<NewPostType>
 }
 
@@ -33,7 +29,6 @@ export type PostsConnectMapPropTypes = MapStatePropTypes & MapDispatchToPropsTyp
 
 let mapStateToProps = (state: AppStateType): MapStatePropTypes => {
     return {
-        textNewPost: state.mainContent.textNewPost,
         postsData: state.mainContent.postsData
     }
 }
@@ -45,8 +40,8 @@ let mapStateToProps = (state: AppStateType): MapStatePropTypes => {
             dispatch(addPostAC())
         },
         changeNewTextCallback: (e: ChangeEvent<HTMLTextAreaElement>) => {
-            const message = e.currentTarget.value;
-            dispatch(changeNewTextCallbackAC(message));
+            const post = e.currentTarget.value;
+            dispatch(changeNewTextCallbackAC(post));
         }
     }
 }*/
@@ -54,6 +49,6 @@ let mapStateToProps = (state: AppStateType): MapStatePropTypes => {
 /*export default connect(mapStateToProps, {addPost, changeNewTextCallback})(PostsContainer);*/
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {addPost, changeNewTextCallback})
+    connect(mapStateToProps, {addPost})
 )(PostsContainer);
 

@@ -1,6 +1,6 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
-import {addPost, changeNewTextCallback, mainContent_reducer, setUserProfile} from "./mainContent_reducer";
-import {addMessage, changeNewMessageCallback, dialogsPage_reducer} from "./dialogsPage_reducer";
+import {addPost, mainContent_reducer, setUserProfile} from "./mainContent_reducer";
+import {addMessage, dialogsPage_reducer} from "./dialogsPage_reducer";
 import {friendsNavigationBar_reducer} from "./friendsNavigationBar_reducer";
 import {
     followSuccess,
@@ -11,15 +11,13 @@ import {
     unFollowSuccess,
     users_reducer
 } from "./users_reducer";
-import {auth_reducer, setAuthUserData} from "./auth_reducer";
+import {auth_reducer, setAuthErrorServer, setAuthUserData} from "./auth_reducer";
 import thunkMiddleware from "redux-thunk"
 
 
 export type ActionsType =
     ReturnType<typeof addPost>
-    | ReturnType<typeof changeNewTextCallback>
     | ReturnType<typeof addMessage>
-    | ReturnType<typeof changeNewMessageCallback>
     | ReturnType<typeof followSuccess>
     | ReturnType<typeof unFollowSuccess>
     | ReturnType<typeof setUsers>
@@ -29,7 +27,9 @@ export type ActionsType =
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setAuthUserData>
     | ReturnType<typeof toggleFollowingFetching>
-    | ReturnType<typeof setStatus>;
+    | ReturnType<typeof setStatus>
+    | ReturnType<typeof setAuthErrorServer>;
+
 
 const rootReducer = combineReducers(
     {

@@ -1,69 +1,42 @@
-import {Field, Formik} from 'formik';
+
 import React from "react";
+import {connect} from "react-redux";
+import {logIn} from "../../redux/auth_reducer";
+import {AppStateType} from "../../redux/reduxStore";
+import {Redirect} from "react-router-dom";
+import {LoginForm} from "./LoginForm";
 
 
-const LoginForm: React.FC = () => {
-    return (<Formik
-        initialValues={{login: '', password: '', rememberMe: false}}
-       /* validate={values => {
-            const errors = {};
-            if (!values.login) {
-                errors.login = 'Required';
-            } else if (
-                !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-            ) {
-                errors.email = 'Invalid email address';
-            }
-            return errors;
-        }}*/
-        onSubmit={(values, {setSubmitting}) => {
-                alert(JSON.stringify(values, null, 2));
-                setSubmitting(false);
-        }}
-    >
-        {({
-              values,
-              errors,
-              touched,
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              isSubmitting,
-              /* and other goodies */
-          }) => (
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="login"
-                    name="login"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.login}
-                />
-{/*                {errors.email && touched.email && errors.email}*/}
-                <input
-                    type="password"
-                    name="password"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.password}
-                />
+const Login: React.FC<LoginContainerPropTypes> = (props) => {
 
-                <Field type="checkbox" name="rememberMe" />
-              {/*  {errors.password && touched.password && errors.password}*/}
-                <button type="submit" disabled={isSubmitting}>
-                    Submit
-                </button>
-            </form>
-        )}
-    </Formik>)
-}
+    if (props.isAuth) {
+        return <Redirect to={"/profile"}/>
+    }
 
-
-export const Login: React.FC = (props) => {
     return (
         <div>
             <h1>LOGIN</h1>
             <LoginForm/>
         </div>
+
     );
 }
+
+
+export type LoginContainerPropTypes = MapDispatchToPropsType & MapStatePropTypes;
+
+export type MapDispatchToPropsType = {
+    logIn: (email: string, password: string, rememberMe: boolean) => void,
+}
+
+type MapStatePropTypes = {
+    isAuth: boolean,
+}
+
+let MapStateToProps = (state: AppStateType): MapStatePropTypes => {
+    return {
+        isAuth: state.auth.isAuth,
+
+    }
+}
+export default connect(MapStateToProps, {logIn})(Login)

@@ -1,9 +1,18 @@
-.item{
+.item {
     color: antiquewhite;
 }
-.postsBlock{
+
+.postsBlock {
     padding: 10px;
 }
-.posts{
+
+.posts {
     margin-top: 10px;
+}
+
+.errorInput {
+    border: 2px solid red;
+}
+.errorText{
+    color: red;
 }

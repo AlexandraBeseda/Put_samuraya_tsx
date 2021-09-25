@@ -21,6 +21,9 @@ class UsersContainer extends React.Component<UsersConnectMapPropTypes> {
 
     onPageChanged = (pageNumber: number) => {
         this.props.getUsers(pageNumber, this.props.pageSize);
+
+        //TODO: тут ли дожна быть устанановлена пагинация?
+        this.props.setCurrentPage(pageNumber)
     }
 
     render() {

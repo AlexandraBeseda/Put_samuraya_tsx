@@ -59,7 +59,7 @@ export const profileAPI = {
 
 export const authAPI = {
 
-    login() {
+    authMe() {
         return instance
             .get(`auth/me`)
             .then(response => response.data);
@@ -67,7 +67,16 @@ export const authAPI = {
         //т.е. вместе с кукис
         //браузер не отправляем куку автоматически
         //только с данным параметром
+    },
+
+    logIn(email: string, password: string, rememberMe: boolean = false) {
+        return instance.post('auth/login', {email, password, rememberMe})
+    },
+    logOut() {
+        return instance.delete('auth/login');
     }
+
+
 }
 
 

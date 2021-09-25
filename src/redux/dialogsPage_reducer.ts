@@ -1,20 +1,16 @@
 import {ActionsType} from "./reduxStore";
 
-export const addMessage = () => {
+export const addMessage = (newMessage:string) => {
     return {
         type: "ADD_MESSAGE",
+        newMessage
     } as const
 }
-export const changeNewMessageCallback = (newMessage:string) => {
-    return {
-        type: "CHANGE_NEW_MESSAGE_CALLBACK",
-        newMessage: newMessage,
-    } as const
-}
+
 export type DialogsPropTypes = {
     dialogsData: Array<DialogItemPropTypes>,
     messagesDataPosts: Array<MessagePropTypes>,
-    messageDataNewPost: string,
+
 }
 export type MessagePropTypes = {
     id: number,
@@ -41,7 +37,6 @@ const initialState = {
         {id: 4, message: "Try again tomorrow."},
         {id: 5, message: "No."},
     ],
-    messageDataNewPost: "",
 };
 
 export const dialogsPage_reducer = (state: DialogsPropTypes = initialState, action: ActionsType): DialogsPropTypes => {
@@ -52,14 +47,11 @@ export const dialogsPage_reducer = (state: DialogsPropTypes = initialState, acti
                 ...state,
                 messagesDataPosts:
                     [...state.messagesDataPosts,
-                        {id: 6, message: state.messageDataNewPost}]
+                        {id: 6, message:action.newMessage}]
             };
-            stateCopy.messageDataNewPost = " ";
             return stateCopy
         }
-        case "CHANGE_NEW_MESSAGE_CALLBACK": {
-            return {...state, messageDataNewPost: action.newMessage};
-        }
+
         default:
             return state
     }
