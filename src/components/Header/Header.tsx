@@ -4,7 +4,6 @@ import {NavLink} from "react-router-dom";
 import {HeaderConnectMapPropTypes} from "./HeaderContainer";
 
 export const Header: React.FC<HeaderConnectMapPropTypes> = (props) => {
-    // debugger
     return (
         <header className={s.header}>
             <img

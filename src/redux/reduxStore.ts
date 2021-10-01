@@ -1,34 +1,19 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
-import {addPost, mainContent_reducer, setUserProfile} from "./mainContent_reducer";
-import {addMessage, dialogsPage_reducer} from "./dialogsPage_reducer";
+import {mainContent_reducer, MainContentReducerActionsType} from "./mainContent_reducer";
+import {dialogsPage_reducer, DialogsReducerActionsType} from "./dialogsPage_reducer";
 import {friendsNavigationBar_reducer} from "./friendsNavigationBar_reducer";
-import {
-    followSuccess,
-    setCurrentPage, setStatus,
-    setTotalUsersCount,
-    setUsers, toggleFollowingFetching,
-    toggleIsFetching,
-    unFollowSuccess,
-    users_reducer
-} from "./users_reducer";
-import {auth_reducer, setAuthErrorServer, setAuthUserData} from "./auth_reducer";
+import {UserReducerActionsType, users_reducer} from "./users_reducer";
+import {auth_reducer, AuthReducerActionsType} from "./auth_reducer";
 import thunkMiddleware from "redux-thunk"
+import {app_reducer, AppReducerActionTypes} from "./app_reducer";
 
 
 export type ActionsType =
-    ReturnType<typeof addPost>
-    | ReturnType<typeof addMessage>
-    | ReturnType<typeof followSuccess>
-    | ReturnType<typeof unFollowSuccess>
-    | ReturnType<typeof setUsers>
-    | ReturnType<typeof setCurrentPage>
-    | ReturnType<typeof setTotalUsersCount>
-    | ReturnType<typeof toggleIsFetching>
-    | ReturnType<typeof setUserProfile>
-    | ReturnType<typeof setAuthUserData>
-    | ReturnType<typeof toggleFollowingFetching>
-    | ReturnType<typeof setStatus>
-    | ReturnType<typeof setAuthErrorServer>;
+    AuthReducerActionsType
+    | UserReducerActionsType
+    | MainContentReducerActionsType
+    | DialogsReducerActionsType
+    | AppReducerActionTypes;
 
 
 const rootReducer = combineReducers(
@@ -38,6 +23,7 @@ const rootReducer = combineReducers(
         navigationBar: friendsNavigationBar_reducer,
         usersPage: users_reducer,
         auth: auth_reducer,
+        app: app_reducer,
     }
 )
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));

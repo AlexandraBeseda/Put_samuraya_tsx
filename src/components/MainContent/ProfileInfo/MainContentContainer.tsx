@@ -19,13 +19,20 @@ class MainContentContainer extends React.Component <PropsType> {
 
     componentDidMount() {
         let userId = this.props.match.params.userId;
+        //если тут не определил
         if (!userId) {
-            //TODO тут в предыдуще виде Димыч магическим образом присвоил при несуществующем айди тот самый айди
-            //на будущее
-            userId = JSON.stringify(2);
+            //если тут не определил
+
+            userId = this.props.authorizedUserID;
+            if(!userId){
+                //если тут не определил
+
+                this.props.history.push('/authMe')
+            }
+
         }
-        this.props.getUsersProfile(userId);
-        this.props.getUserStatus(userId);
+            userId && this.props.getUsersProfile(userId);
+            userId && this.props.getUserStatus(userId);
     }
 
     render() {
@@ -42,7 +49,7 @@ class MainContentContainer extends React.Component <PropsType> {
 type MapStatePropTypes = {
     usersProfiles: ProfileType | null,
     status: string,
-    authorizedUserID: null | string,
+    authorizedUserID: undefined | string,
     isAuth: boolean,
 }
 type MapDispatchToPropsType = {
@@ -54,7 +61,8 @@ type MapDispatchToPropsType = {
 
 //withRouter типизация
 type PathParamsType = {
-    userId: string,
+    //TODO корректно ли?
+    userId: string|undefined,
 }
 
 let MapStateToProps = (state: AppStateType): MapStatePropTypes => {

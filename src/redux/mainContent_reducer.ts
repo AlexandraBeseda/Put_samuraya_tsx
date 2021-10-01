@@ -1,7 +1,7 @@
-import {ActionsType} from "./reduxStore";
 import {Dispatch} from "redux";
 import {profileAPI, userAPI} from "../api/api";
 import {setStatus} from "./users_reducer";
+
 
 export const addPost = (newPost: string) => ({type: "ADD_POST", newPost} as const);
 
@@ -60,22 +60,24 @@ const initialState: PostsDataArrayPropTypes = {
     status: "",
 };
 
-export const mainContent_reducer = (state: PostsDataArrayPropTypes = initialState, action: ActionsType): PostsDataArrayPropTypes => {
+export type MainContentReducerActionsType =
+    ReturnType<typeof addPost>
+    | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof setStatus>;
+
+export const mainContent_reducer = (state: PostsDataArrayPropTypes = initialState, action: MainContentReducerActionsType): PostsDataArrayPropTypes => {
     switch (action.type) {
         case "ADD_POST": {
             let stateCopy = {
                 ...state, postsData: [...state.postsData,
                     {id: 5, message: action.newPost, likes: 155}]
             };
-            //stateCopy.textNewPost = " ";
             return stateCopy
         }
-
         case "SET_USER_PROFILE": {
             return {...state, usersProfiles: action.usersProfiles}
         }
         case "SET_STATUS": {
-            debugger
             return {...state, status: action.status}
         }
         default:

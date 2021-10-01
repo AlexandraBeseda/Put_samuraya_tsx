@@ -11,6 +11,14 @@ import React from "react";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
 import {compose} from "redux";
+import {
+    getCurrentPage,
+    getFollowingInProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount,
+    getUsers
+} from "../../redux/users_selectors";
 
 
 class UsersContainer extends React.Component<UsersConnectMapPropTypes> {
@@ -56,6 +64,16 @@ type MapStatePropTypes = {
 
 let MapStateToProps = (state: AppStateType): MapStatePropTypes => {
     return {
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state),
+    }
+}
+/*let MapStateToProps = (state: AppStateType): MapStatePropTypes => {
+    return {
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
@@ -63,7 +81,7 @@ let MapStateToProps = (state: AppStateType): MapStatePropTypes => {
         isFetching: state.usersPage.isFetching,
         followingInProgress: state.usersPage.followingInProgress,
     }
-}
+}*/
 
 type MapDispatchToPropsType = {
     setCurrentPage: (currentPage: number) => void,

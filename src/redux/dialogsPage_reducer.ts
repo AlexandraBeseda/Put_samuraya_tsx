@@ -1,6 +1,4 @@
-import {ActionsType} from "./reduxStore";
-
-export const addMessage = (newMessage:string) => {
+export const addMessage = (newMessage: string) => {
     return {
         type: "ADD_MESSAGE",
         newMessage
@@ -39,17 +37,19 @@ const initialState = {
     ],
 };
 
-export const dialogsPage_reducer = (state: DialogsPropTypes = initialState, action: ActionsType): DialogsPropTypes => {
+
+export type DialogsReducerActionsType = ReturnType<typeof addMessage>;
+
+export const dialogsPage_reducer = (state: DialogsPropTypes = initialState, action: DialogsReducerActionsType): DialogsPropTypes => {
 
     switch (action.type) {
         case "ADD_MESSAGE": {
-            let stateCopy = {
+            return {
                 ...state,
                 messagesDataPosts:
                     [...state.messagesDataPosts,
-                        {id: 6, message:action.newMessage}]
-            };
-            return stateCopy
+                        {id: 6, message: action.newMessage}]
+            }
         }
 
         default:

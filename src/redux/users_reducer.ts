@@ -1,6 +1,6 @@
-import {ActionsType} from "./reduxStore";
 import {Dispatch} from "redux";
 import {userAPI} from "../api/api";
+
 
 export const setStatus = (status: string) => {
     return {
@@ -8,7 +8,6 @@ export const setStatus = (status: string) => {
         status
     } as const
 }
-
 
 export const followSuccess = (userID: number) => {
     return {
@@ -87,7 +86,17 @@ const initialState: UsersPropTypes = {
     followingInProgress: [],
 };
 
-export const users_reducer = (state: UsersPropTypes = initialState, action: ActionsType): UsersPropTypes => {
+export type UserReducerActionsType =
+    | ReturnType<typeof followSuccess>
+    | ReturnType<typeof unFollowSuccess>
+    | ReturnType<typeof setUsers>
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setTotalUsersCount>
+    | ReturnType<typeof toggleIsFetching>
+    | ReturnType<typeof toggleFollowingFetching>;
+
+
+export const users_reducer = (state: UsersPropTypes = initialState, action: UserReducerActionsType): UsersPropTypes => {
 
     switch (action.type) {
         case "FOLLOW" : {
@@ -137,11 +146,13 @@ export const users_reducer = (state: UsersPropTypes = initialState, action: Acti
     }
 }
 
-export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
+export const getUsersThunkCreator = (page: number, pageSize: number) => {
     return (dispatch: Dispatch) => {
         dispatch(toggleIsFetching(true));
+        //TODO 81 lesson, при перерисовке сохраням данную страницу в стэйт
+        dispatch(setCurrentPage(page));
 
-        userAPI.getUsers(currentPage, pageSize).then(data => {
+        userAPI.getUsers(page, pageSize).then(data => {
             dispatch(toggleIsFetching(false));
 
             dispatch(setUsers(data.items));
@@ -152,12 +163,12 @@ export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
 
 export const followThunkCreator = (userID: number) => {
     return (dispatch: Dispatch) => {
-       dispatch(toggleFollowingFetching(true, userID));
+        dispatch(toggleFollowingFetching(true, userID));
 
         userAPI.followUser(userID)
             .then(data => {
                 if (data.resultCode === 0) {
-                   dispatch(followSuccess(userID))
+                    dispatch(followSuccess(userID))
                 }
             })
         dispatch(toggleFollowingFetching(false, userID));
