@@ -1,24 +1,24 @@
 {
   "files": {
     "main.css": "/Put_samuraya_tsx/static/css/main.536e6471.chunk.css",
-    "main.js": "/Put_samuraya_tsx/static/js/main.6ec73db2.chunk.js",
-    "main.js.map": "/Put_samuraya_tsx/static/js/main.6ec73db2.chunk.js.map",
-    "runtime-main.js": "/Put_samuraya_tsx/static/js/runtime-main.11794f9a.js",
-    "runtime-main.js.map": "/Put_samuraya_tsx/static/js/runtime-main.11794f9a.js.map",
-    "static/js/2.bf406c40.chunk.js": "/Put_samuraya_tsx/static/js/2.bf406c40.chunk.js",
-    "static/js/2.bf406c40.chunk.js.map": "/Put_samuraya_tsx/static/js/2.bf406c40.chunk.js.map",
-    "static/js/3.5b0872f8.chunk.js": "/Put_samuraya_tsx/static/js/3.5b0872f8.chunk.js",
-    "static/js/3.5b0872f8.chunk.js.map": "/Put_samuraya_tsx/static/js/3.5b0872f8.chunk.js.map",
+    "main.js": "/Put_samuraya_tsx/static/js/main.25e6a458.chunk.js",
+    "main.js.map": "/Put_samuraya_tsx/static/js/main.25e6a458.chunk.js.map",
+    "runtime-main.js": "/Put_samuraya_tsx/static/js/runtime-main.539a3d24.js",
+    "runtime-main.js.map": "/Put_samuraya_tsx/static/js/runtime-main.539a3d24.js.map",
+    "static/js/2.f7ac912c.chunk.js": "/Put_samuraya_tsx/static/js/2.f7ac912c.chunk.js",
+    "static/js/2.f7ac912c.chunk.js.map": "/Put_samuraya_tsx/static/js/2.f7ac912c.chunk.js.map",
+    "static/js/3.86dd84e2.chunk.js": "/Put_samuraya_tsx/static/js/3.86dd84e2.chunk.js",
+    "static/js/3.86dd84e2.chunk.js.map": "/Put_samuraya_tsx/static/js/3.86dd84e2.chunk.js.map",
     "index.html": "/Put_samuraya_tsx/index.html",
     "static/css/main.536e6471.chunk.css.map": "/Put_samuraya_tsx/static/css/main.536e6471.chunk.css.map",
-    "static/js/2.bf406c40.chunk.js.LICENSE.txt": "/Put_samuraya_tsx/static/js/2.bf406c40.chunk.js.LICENSE.txt",
+    "static/js/2.f7ac912c.chunk.js.LICENSE.txt": "/Put_samuraya_tsx/static/js/2.f7ac912c.chunk.js.LICENSE.txt",
     "static/media/Spin-1s-200px.b988d774.svg": "/Put_samuraya_tsx/static/media/Spin-1s-200px.b988d774.svg",
     "static/media/ironman-marvel-super-hero-earth-saver-avenger.f976e147.png": "/Put_samuraya_tsx/static/media/ironman-marvel-super-hero-earth-saver-avenger.f976e147.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.11794f9a.js",
-    "static/js/2.bf406c40.chunk.js",
+    "static/js/runtime-main.539a3d24.js",
+    "static/js/2.f7ac912c.chunk.js",
     "static/css/main.536e6471.chunk.css",
-    "static/js/main.6ec73db2.chunk.js"
+    "static/js/main.25e6a458.chunk.js"
   ]
 }
