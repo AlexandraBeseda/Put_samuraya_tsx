@@ -6,10 +6,12 @@ import {Field, Formik, FormikErrors} from "formik";
 
 export const Posts: React.FC<PostsConnectMapPropTypes> = React.memo((props) => {
     console.log("RENDER functional component Posts")
-    const postsElements = props.postsData.map(p => <NewPost key={p.id}
-                                                            id={p.id}
-                                                            message={p.message}
-                                                            likes={p.likes}/>);
+    const postsElements = [...props.postsData]
+        .reverse()
+        .map(p => <NewPost key={p.id}
+                           id={p.id}
+                           message={p.message}
+                           likes={p.likes}/>);
 
 
     return (
