@@ -4,6 +4,7 @@ import {setStatus} from "./users_reducer";
 
 
 export const addPost = (newPost: string) => ({type: "ADD_POST", newPost} as const);
+export const deletePost = (postId: number) => ({type: "DELETE_POST", postId} as const);
 
 export const setUserProfile = (userProfiles: ProfileType) => {
     return {
@@ -63,7 +64,8 @@ const initialState: PostsDataArrayPropTypes = {
 export type MainContentReducerActionsType =
     ReturnType<typeof addPost>
     | ReturnType<typeof setUserProfile>
-    | ReturnType<typeof setStatus>;
+    | ReturnType<typeof setStatus>
+    | ReturnType<typeof deletePost>;
 
 export const mainContent_reducer = (state: PostsDataArrayPropTypes = initialState, action: MainContentReducerActionsType): PostsDataArrayPropTypes => {
     switch (action.type) {
@@ -79,6 +81,9 @@ export const mainContent_reducer = (state: PostsDataArrayPropTypes = initialStat
         }
         case "SET_STATUS": {
             return {...state, status: action.status}
+        }
+        case "DELETE_POST": {
+            return {...state, postsData: state.postsData.filter(p => p.id != action.postId)}
         }
         default:
             return state
