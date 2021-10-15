@@ -61,7 +61,6 @@ type MapDispatchToPropsType = {
 
 //withRouter типизация
 type PathParamsType = {
-    //TODO корректно ли?
     userId: string|undefined,
 }
 

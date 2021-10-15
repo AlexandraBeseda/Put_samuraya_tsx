@@ -4,7 +4,8 @@ import {NewPost} from "./NewPost/NewPost";
 import {PostsConnectMapPropTypes} from "./PostsContainer";
 import {Field, Formik, FormikErrors} from "formik";
 
-export const Posts: React.FC<PostsConnectMapPropTypes> = (props) => {
+export const Posts: React.FC<PostsConnectMapPropTypes> = React.memo((props) => {
+    console.log("RENDER functional component Posts")
     const postsElements = props.postsData.map(p => <NewPost key={p.id}
                                                             id={p.id}
                                                             message={p.message}
@@ -22,7 +23,7 @@ export const Posts: React.FC<PostsConnectMapPropTypes> = (props) => {
             </div>
         </div>
     );
-}
+})
 
 type AddPostFormType = {
     callback: (newMessage: string) => void,
@@ -67,10 +68,10 @@ const AddPostForm: React.FC<AddPostFormType> = (props) => {
               }) => (
                 <form onSubmit={handleSubmit}>
                     {/*свойство нэйм, это то, что мы туда запихиваем!*/}
-                    <div >
+                    <div>
                         <Field
                             /*    error={errors.post && touched.post}*/
-                             style={ errors.post && touched.post && { border: '1px solid red'} }
+                            style={errors.post && touched.post && {border: '1px solid red'}}
                             /*classname={errors.post && touched.post ? s.errorInput : ""}*/
                             name={"post"}
                             component={"textarea"}
