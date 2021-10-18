@@ -24,12 +24,13 @@ import {
 class UsersContainer extends React.Component<UsersConnectMapPropTypes> {
 
     componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize);
+        const {currentPage, pageSize} = this.props;
+        this.props.getUsers(currentPage, pageSize);
     }
 
     onPageChanged = (pageNumber: number) => {
-        this.props.getUsers(pageNumber, this.props.pageSize);
-
+        const {pageSize} = this.props;
+        this.props.getUsers(pageNumber, pageSize);
         //TODO: тут ли дожна быть устанановлена пагинация?
         this.props.setCurrentPage(pageNumber)
     }
@@ -72,16 +73,6 @@ let MapStateToProps = (state: AppStateType): MapStatePropTypes => {
         followingInProgress: getFollowingInProgress(state),
     }
 }
-/*let MapStateToProps = (state: AppStateType): MapStatePropTypes => {
-    return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress,
-    }
-}*/
 
 type MapDispatchToPropsType = {
     setCurrentPage: (currentPage: number) => void,
@@ -91,15 +82,6 @@ type MapDispatchToPropsType = {
 }
 
 export type UsersConnectMapPropTypes = MapStatePropTypes & MapDispatchToPropsType;
-
-/*export default connect(MapStateToProps,
-    {
-        setCurrentPage,
-        toggleFollowingFetching,
-        getUsers: getUsersThunkCreator,
-        follow:followThunkCreator,
-        unFollow:unFollowThunkCreator
-    })(UsersContainer);*/
 
 export default compose<React.ComponentType>(
     connect(MapStateToProps,

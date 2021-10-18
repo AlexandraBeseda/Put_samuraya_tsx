@@ -10,7 +10,6 @@ import AppContainer from "./App";
 
 ReactDOM.render(
     <BrowserRouter>
-
         <Provider store={store}>
             <AppContainer />
         </Provider>

@@ -11,27 +11,23 @@ type ProfileInfoPropTypes = {
 }
 
 
-export const ProfileInfo: React.FC<ProfileInfoPropTypes> = (props) => {
-    if (!props.profile) {
+export const ProfileInfo: React.FC<ProfileInfoPropTypes> = ({profile, updateStatus, status}) => {
+    if (!profile) {
         return (<Preloader/>)
     }
 
     return (
         <div>
-            {/*<div>
-                <img alt="#" className={s.themeImg}
-                     src='https://st2.depositphotos.com/1021014/7859/i/600/depositphotos_78597430-stock-photo-nature-background-panorama.jpg'/>
-            </div>*/}
             <div className={s.descriptionBlock}>
 
-                <img src={props.profile.photos.large} alt=""/>
+                <img src={profile.photos.large} alt=""/>
 
-                <ProfileStatusWithHook status={props.status} updateStatus={props.updateStatus}/>
+                <ProfileStatusWithHook status={status} updateStatus={updateStatus}/>
 
-                <div>fullName: {props.profile.fullName}</div>
-                <div>aboutMe: {props.profile.aboutMe}</div>
-                <div>lookingForAJob:{props.profile.lookingForAJob}</div>
-                <div>github: {props.profile.contacts.github}</div>
+                <div>fullName: {profile.fullName}</div>
+                <div>aboutMe: {profile.aboutMe}</div>
+                <div>lookingForAJob:{profile.lookingForAJob}</div>
+                <div>github: {profile.contacts.github}</div>
             </div>
         </div>
     );
