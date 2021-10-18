@@ -3,23 +3,24 @@ import {profileAPI, userAPI} from "../api/api";
 import {setStatus} from "./users_reducer";
 
 
-export const addPost = (newPost: string) => ({type: "ADD_POST", newPost} as const);
-export const deletePost = (postId: number) => ({type: "DELETE_POST", postId} as const);
+export const addPost = (newPost: string) => ({
+    type: "samuray/main_content/ADD_POST", newPost
+} as const);
+export const deletePost = (postId: number) => ({
+    type: "samuray/main_content/DELETE_POST", postId
+} as const);
 
-export const setUserProfile = (userProfiles: ProfileType) => {
-    return {
-        type: "SET_USER_PROFILE",
-        usersProfiles: userProfiles,
-    } as const
-}
+export const setUserProfile = (userProfiles: ProfileType) => ({
+    type: "samuray/main_content/SET_USER_PROFILE", usersProfiles: userProfiles
+} as const)
+
 
 export type ProfileType = {
     userId: number,
     aboutMe: string,
-    //lookingForAJob: number,
     lookingForAJob: boolean,
     lookingForAJobDescription: null | string,
-    fullName: string,//уточнить всегда ли есть имя
+    fullName: string,
     contacts: {
         github: null | string,
         vk: null | string,
@@ -62,28 +63,28 @@ const initialState: PostsDataArrayPropTypes = {
 };
 
 export type MainContentReducerActionsType =
-    ReturnType<typeof addPost>
+    | ReturnType<typeof addPost>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setStatus>
     | ReturnType<typeof deletePost>;
 
 export const mainContent_reducer = (state: PostsDataArrayPropTypes = initialState, action: MainContentReducerActionsType): PostsDataArrayPropTypes => {
     switch (action.type) {
-        case "ADD_POST": {
+        case "samuray/main_content/ADD_POST": {
             let stateCopy = {
                 ...state, postsData: [...state.postsData,
                     {id: 5, message: action.newPost, likes: 155}]
             };
             return stateCopy
         }
-        case "SET_USER_PROFILE": {
+        case "samuray/main_content/SET_USER_PROFILE": {
             return {...state, usersProfiles: action.usersProfiles}
         }
-        case "SET_STATUS": {
+        case "samuray/users/SET_STATUS": {
             return {...state, status: action.status}
         }
-        case "DELETE_POST": {
-            return {...state, postsData: state.postsData.filter(p => p.id != action.postId)}
+        case "samuray/main_content/DELETE_POST": {
+            return {...state, postsData: state.postsData.filter(p => p.id !== action.postId)}
         }
         default:
             return state
@@ -92,32 +93,24 @@ export const mainContent_reducer = (state: PostsDataArrayPropTypes = initialStat
 
 
 export const getUserProfileThunkCreator = (userID: string) => {
-    return (dispatch: Dispatch) => {
-        userAPI.getUserProfile(userID)
-            .then(data => {
-                dispatch(setUserProfile(data));
-            })
+    return async (dispatch: Dispatch) => {
+        let response = await userAPI.getUserProfile(userID);
+        dispatch(setUserProfile(response));
     }
 }
 
 export const getUserStatusTC = (userID: string) => {
-    return (dispatch: Dispatch) => {
-        profileAPI.getUserStatus(userID)
-            .then(response => {
-                debugger
-                dispatch(setStatus(response.data));
-            })
+    return async (dispatch: Dispatch) => {
+        let response = await profileAPI.getUserStatus(userID);
+        dispatch(setStatus(response.data))
     }
 }
 
 export const updateUserStatusTC = (status: string) => {
-    return (dispatch: Dispatch) => {
-        profileAPI.updateUserStatus(status)
-            .then(response => {
-                debugger
-                if (response.data.resultCode === 0) {
-                    dispatch(setStatus(status))
-                }
-            })
+    return async (dispatch: Dispatch) => {
+        let response =  await profileAPI.updateUserStatus(status);
+        if (response.data.resultCode === 0) {
+            dispatch(setStatus(status))
+        }
     }
 }

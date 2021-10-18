@@ -4,53 +4,53 @@ import {userAPI} from "../api/api";
 
 export const setStatus = (status: string) => {
     return {
-        type: "SET_STATUS",
+        type: "samuray/users/SET_STATUS",
         status
     } as const
 }
 
 export const followSuccess = (userID: number) => {
     return {
-        type: "FOLLOW",
+        type: "samuray/users/FOLLOW",
         userID
     } as const
 }
 export const unFollowSuccess = (userID: number) => {
     return {
-        type: "UNFOLLOW",
+        type: "samuray/users/UNFOLLOW",
         userID
     } as const
 }
 export const setUsers = (newUsers: UserTypes[]) => {
     return {
-        type: "SET_USERS",
+        type: "samuray/users/SET_USERS",
         newUsers
     } as const
 }
 
 export const setCurrentPage = (currentPage: number) => {
     return {
-        type: "SET_CURRENT_PAGE",
+        type: "samuray/users/SET_CURRENT_PAGE",
         currentPage
     } as const
 }
 
 export const setTotalUsersCount = (count: number) => {
     return {
-        type: "SET_TOTAL_USERS_COUNT",
+        type: "samuray/users/SET_TOTAL_USERS_COUNT",
         count
     } as const
 }
 
 export const toggleIsFetching = (isFetching: boolean) => {
     return {
-        type: "TOGGLE_IS_FETCHING",
+        type: "samuray/users/TOGGLE_IS_FETCHING",
         isFetching
     } as const
 }
 export const toggleFollowingFetching = (toggle: boolean, userId: number) => {
     return {
-        type: "TOGGLE_FOLLOWING_IS_FETCHING",
+        type: "samuray/users/TOGGLE_FOLLOWING_IS_FETCHING",
         userId,
         toggle,
     } as const
@@ -78,7 +78,6 @@ export type UsersPropTypes = {
 
 const initialState: UsersPropTypes = {
     users: [],
-    // totalCount:
     pageSize: 5,
     totalUsersCount: 0,
     currentPage: 1,
@@ -99,7 +98,7 @@ export type UserReducerActionsType =
 export const users_reducer = (state: UsersPropTypes = initialState, action: UserReducerActionsType): UsersPropTypes => {
 
     switch (action.type) {
-        case "FOLLOW" : {
+        case "samuray/users/FOLLOW" : {
             return {
                 ...state,
                 users: state.users.map(u => {
@@ -110,7 +109,7 @@ export const users_reducer = (state: UsersPropTypes = initialState, action: User
                 })
             }
         }
-        case "UNFOLLOW": {
+        case "samuray/users/UNFOLLOW": {
             return {
                 ...state,
                 users: state.users.map(u => {
@@ -121,19 +120,19 @@ export const users_reducer = (state: UsersPropTypes = initialState, action: User
                 })
             }
         }
-        case "SET_USERS": {
+        case "samuray/users/SET_USERS": {
             return {...state, users: action.newUsers}
         }
-        case "SET_CURRENT_PAGE": {
+        case "samuray/users/SET_CURRENT_PAGE": {
             return {...state, currentPage: action.currentPage}
         }
-        case "SET_TOTAL_USERS_COUNT": {
+        case "samuray/users/SET_TOTAL_USERS_COUNT": {
             return {...state, totalUsersCount: action.count}
         }
-        case "TOGGLE_IS_FETCHING": {
+        case "samuray/users/TOGGLE_IS_FETCHING": {
             return {...state, isFetching: action.isFetching}
         }
-        case "TOGGLE_FOLLOWING_IS_FETCHING": {
+        case "samuray/users/TOGGLE_FOLLOWING_IS_FETCHING": {
             return {
                 ...state,
                 followingInProgress: action.toggle
@@ -147,43 +146,35 @@ export const users_reducer = (state: UsersPropTypes = initialState, action: User
 }
 
 export const getUsersThunkCreator = (page: number, pageSize: number) => {
-    return (dispatch: Dispatch) => {
+    return async (dispatch: Dispatch) => {
         dispatch(toggleIsFetching(true));
         //TODO 81 lesson, при перерисовке сохраням данную страницу в стэйт
         dispatch(setCurrentPage(page));
-
-        userAPI.getUsers(page, pageSize).then(data => {
-            dispatch(toggleIsFetching(false));
-
-            dispatch(setUsers(data.items));
-            dispatch(setTotalUsersCount(data.totalCount));
-        })
+        let response = await userAPI.getUsers(page, pageSize);
+        dispatch(toggleIsFetching(false));
+        dispatch(setUsers(response.items));
+        dispatch(setTotalUsersCount(response.totalCount));
     }
 }
 
 export const followThunkCreator = (userID: number) => {
-    return (dispatch: Dispatch) => {
+    return async (dispatch: Dispatch) => {
         dispatch(toggleFollowingFetching(true, userID));
-
-        userAPI.followUser(userID)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    dispatch(followSuccess(userID))
-                }
-            })
+        let response = await userAPI.followUser(userID);
+        if (response.resultCode === 0) {
+            dispatch(followSuccess(userID))
+        }
         dispatch(toggleFollowingFetching(false, userID));
     }
 }
 
 export const unFollowThunkCreator = (userID: number) => {
-    return (dispatch: Dispatch) => {
+    return async (dispatch: Dispatch) => {
         dispatch(toggleFollowingFetching(true, userID));
-        userAPI.unFollowUser(userID)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    dispatch(unFollowSuccess(userID))
-                }
-            })
+        let response = await userAPI.unFollowUser(userID);
+        if (response.resultCode === 0) {
+            dispatch(unFollowSuccess(userID))
+        }
         dispatch(toggleFollowingFetching(false, userID));
     }
 }

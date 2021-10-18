@@ -1,6 +1,6 @@
 export const addMessage = (newMessage: string) => {
     return {
-        type: "ADD_MESSAGE",
+        type: "samuray/dialogsPage/ADD_MESSAGE",
         newMessage
     } as const
 }
@@ -43,7 +43,7 @@ export type DialogsReducerActionsType = ReturnType<typeof addMessage>;
 export const dialogsPage_reducer = (state: DialogsPropTypes = initialState, action: DialogsReducerActionsType): DialogsPropTypes => {
 
     switch (action.type) {
-        case "ADD_MESSAGE": {
+        case "samuray/dialogsPage/ADD_MESSAGE": {
             return {
                 ...state,
                 messagesDataPosts:
@@ -51,7 +51,6 @@ export const dialogsPage_reducer = (state: DialogsPropTypes = initialState, acti
                         {id: 6, message: action.newMessage}]
             }
         }
-
         default:
             return state
     }

@@ -4,13 +4,13 @@ import {ThunkAction} from "redux-thunk"
 
 export const setAuthUserData = (userId: string | undefined, login: string | null, email: string | null, isAuth: boolean) => {
     return {
-        type: "SET_USER_DATA",
+        type: "samuray/auth/SET_USER_DATA",
         payload: {userId, login, email, isAuth},
     } as const
 }
 export const setAuthErrorServer = (authError: string) => {
     return {
-        type: "SET_AUTH_ERROR_RES_FROM_SERVER",
+        type: "samuray/auth/SET_AUTH_ERROR_RES_FROM_SERVER",
         authError,
     } as const
 }
@@ -32,7 +32,7 @@ const initialState = {
 };
 
 type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsType>;
-type ThunkReturnType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType>;
+//type ThunkReturnType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType>;
 
 export type AuthReducerActionsType =
     | ReturnType<typeof setAuthUserData>
@@ -41,11 +41,11 @@ export type AuthReducerActionsType =
 export const auth_reducer = (state: AuthPropTypes = initialState, action: AuthReducerActionsType): AuthPropTypes => {
 
     switch (action.type) {
-        case "SET_USER_DATA" : {
+        case "samuray/auth/SET_USER_DATA" : {
             debugger
             return {...state, ...action.payload}
         }
-        case "SET_AUTH_ERROR_RES_FROM_SERVER": {
+        case "samuray/auth/SET_AUTH_ERROR_RES_FROM_SERVER": {
             return {...state, authError: action.authError}
         }
         default:
@@ -55,38 +55,29 @@ export const auth_reducer = (state: AuthPropTypes = initialState, action: AuthRe
 
 
 export const getAuthUserData = (): ThunkType =>
-    (dispatch) => {
-        authAPI.authMe()
-            .then(res => {
-                if (res.resultCode === 0) {
-                    let {id, login, email} = res.data
-                    dispatch(setAuthUserData(id, login, email, true))
-                }
-            })
+    async (dispatch) => {
+        let response = await authAPI.authMe();
+        if (response.resultCode === 0) {
+            let {id, login, email} = response.data;
+            dispatch(setAuthUserData(id, login, email, true))
+        }
     }
 
-export const logIn = (email: string, password: string, rememberMe: boolean)
-    : ThunkType =>
-    (dispatch) => {
-        authAPI.logIn(email, password, rememberMe)
-            .then((res) => {
-                debugger
-                if (res.data.resultCode === 0) {
-                    dispatch(getAuthUserData())
-                    debugger
-                } else {
-                    let errorMessage = res.data.messages.lenght > 0 ? res.data.messages[0] : "Some error with auth";
-                    dispatch(setAuthErrorServer(errorMessage))
-                }
-            })
+export const logIn = (email: string, password: string, rememberMe: boolean): ThunkType =>
+    async (dispatch) => {
+        let response = await authAPI.logIn(email, password, rememberMe);
+        if (response.data.resultCode === 0) {
+            dispatch(getAuthUserData())
+        } else {
+            let errorMessage = response.data.messages.lenght > 0 ? response.data.messages[0] : "Some error with auth";
+            dispatch(setAuthErrorServer(errorMessage))
+        }
     }
 
 export const logOut = (): ThunkType =>
-    (dispatch) => {
-        authAPI.logOut()
-            .then((res) => {
-                if (res.data.resultCode === 0) {
-                    dispatch(setAuthUserData(undefined, null, null, false))
-                }
-            })
+    async (dispatch) => {
+        let response = await authAPI.logOut();
+        if (response.data.resultCode === 0) {
+            dispatch(setAuthUserData(undefined, null, null, false))
+        }
     }
