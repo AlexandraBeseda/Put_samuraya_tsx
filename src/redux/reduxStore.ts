@@ -1,4 +1,4 @@
-import {applyMiddleware, combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, compose, createStore} from "redux";
 import {mainContent_reducer, MainContentReducerActionsType} from "./mainContent_reducer";
 import {dialogsPage_reducer, DialogsReducerActionsType} from "./dialogsPage_reducer";
 import {friendsNavigationBar_reducer} from "./friendsNavigationBar_reducer";
@@ -28,7 +28,11 @@ const rootReducer = combineReducers(
 )
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
-export type AppStateType = ReturnType<typeof rootReducer>
+export type AppStateType = ReturnType<typeof rootReducer>;
+
+//@ts-ignore
+//const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+//export const store =  createStore(rootReducer,  composeEnhancers(applyMiddleware(thunkMiddleware)));
 
 //создали встроенный объект store в redux, помним про типизацию
 

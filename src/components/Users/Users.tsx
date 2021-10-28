@@ -27,13 +27,13 @@ export const Users: React.FC<UsersConnectMapPropTypes & UsersAPIComponentPropTyp
                        onPageChanged={onPageChanged}/>
             <div>
                 {users.map((u) =>
-                <User key={u.id}
-                      user={u}
-                      follow={follow}
-                      unFollow={unFollow}
-                      followingInProgress={followingInProgress}/>
-            )
-            }
+                    <User key={u.id}
+                          user={u}
+                          follow={follow}
+                          unFollow={unFollow}
+                          followingInProgress={followingInProgress}/>
+                )
+                }
             </div>
         </div>
     );
