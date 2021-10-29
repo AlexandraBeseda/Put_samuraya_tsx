@@ -3,7 +3,7 @@ import './App.css';
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import { Route, withRouter} from "react-router-dom";
+import {BrowserRouter, Route, withRouter} from "react-router-dom";
 import {NavigationBar} from "./components/NavigationBar/NavigationBar";
 import UsersContainer from "./components/Users/UsersContainer";
 import MainContentContainer from "./components/MainContent/ProfileInfo/MainContentContainer";
@@ -11,9 +11,9 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
 import {compose} from "redux";
-import {connect} from "react-redux";
+import {connect, Provider} from "react-redux";
 import {initializeApp} from "./redux/app_reducer";
-import {AppStateType} from "./redux/reduxStore";
+import {AppStateType, store} from "./redux/reduxStore";
 import {Preloader} from "./components/common/Preloader/Preloader";
 
 export class App extends React.Component<AppContainerPropTypes> {
@@ -62,4 +62,13 @@ type MapStatePropTypes = {
     initialized: boolean,
 }
 
-export default compose<React.ComponentType>(withRouter, connect(MapStateToProps, {initializeApp}))(App)
+const AppContainer = compose<React.ComponentType>(withRouter, connect(MapStateToProps, {initializeApp}))(App);
+
+export const SamuraiJSApp: React.FC = () => {
+    return (<BrowserRouter>
+        <Provider store={store}>
+            <AppContainer/>
+        </Provider>
+    </BrowserRouter>)
+
+}
